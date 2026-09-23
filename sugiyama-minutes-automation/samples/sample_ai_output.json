@@ -1,46 +1,167 @@
 {
-  "meeting": { "number": 2, "date": "2026-10-02", "weekday": "金", "start": "15:00", "end": "15:30", "place": "現場事務所　会議室" },
+  "meeting": {
+    "number": 2,
+    "date": "2026-10-02",
+    "weekday": "金",
+    "start": "15:00",
+    "end": "15:30",
+    "place": "現場事務所　会議室"
+  },
   "attendees": [
-    { "name": "サンプル 設計A", "mode": "WEB" },
-    { "name": "サンプル 施工B", "mode": "現地" }
+    {
+      "name": "サンプル 設計A",
+      "mode": "WEB"
+    },
+    {
+      "name": "サンプル 施工B",
+      "mode": "現地"
+    }
   ],
   "items": [
     {
-      "no": 1, "title": "タイル仕様の決定", "status": "条件付承認",
+      "no": 1,
+      "title": "タイル仕様の決定",
+      "status": "条件付承認",
       "result": "織部製陶4色MIXは提出タイルで承認。接着剤はグレー、床目地は濃灰色（M-3）で決定。目地巾は8mmで承認。名古屋モザイク アイスランドはICE-10単色とし、目地色は灰色（M-2）。",
-      "actions": [ { "task": "アイスランドICE-10の見本板を再提出", "owner": "SC", "due": "2026-10-09" } ]
+      "actions": [
+        {
+          "task": "アイスランドICE-10の見本板を再提出",
+          "owner": "SC",
+          "due": "2026-10-09"
+        }
+      ]
     },
     {
-      "no": 2, "title": "SG1取替理由", "status": "回答待ち",
+      "no": 2,
+      "title": "SG1取替理由",
+      "status": "回答待ち",
       "result": "取替理由は既設ガラリの腐食による。納まりは既設同仕様でよいか、NSで確認のうえ回答する。",
-      "actions": [ { "task": "SG1納まりの可否を回答", "owner": "NS", "due": "2026-10-09" } ]
+      "actions": [
+        {
+          "task": "SG1納まりの可否を回答",
+          "owner": "NS",
+          "due": "2026-10-09"
+        }
+      ]
     },
     {
-      "no": 3, "title": "AD1センサー位置", "status": "継続審議",
+      "no": 3,
+      "title": "AD1センサー位置",
+      "status": "継続審議",
       "result": "光天井との干渉を避けるため、当面は無目付センサーで作図する。天井埋込とするかは光天井の割付確定後に再協議。",
-      "actions": [ { "task": "光天井割付図を提出", "owner": "SC", "due": "" } ]
+      "actions": [
+        {
+          "task": "光天井割付図を提出",
+          "owner": "SC",
+          "due": ""
+        }
+      ]
     },
-    { "no": 5, "title": "SSD色・艶", "status": "保留", "result": "ステンレスHLでの検討も含め、見本提出後に決定する。※要確認：見本提出日", "actions": [] },
-    { "no": 6, "title": "SSD取付固定方法", "status": "承認", "result": "火無工法で既設耐風梁へのビス固定を承認（NS）。", "actions": [] },
-    { "no": 7, "title": "モルタルアート色選定", "status": "未審議", "result": "本日審議なし。次回継続。", "actions": [] }
+    {
+      "no": 5,
+      "title": "SSD色・艶",
+      "status": "保留",
+      "result": "ステンレスHLでの検討も含め、見本提出後に決定する。※要確認：見本提出日",
+      "actions": []
+    },
+    {
+      "no": 6,
+      "title": "SSD取付固定方法",
+      "status": "承認",
+      "result": "火無工法で既設耐風梁へのビス固定を承認（NS）。",
+      "actions": []
+    },
+    {
+      "no": 7,
+      "title": "モルタルアート色選定",
+      "status": "未審議",
+      "result": "本日審議なし。次回継続。",
+      "actions": []
+    }
   ],
   "new_items": [
     {
-      "no": 0, "title": "搬入経路の変更", "status": "報告",
+      "no": 0,
+      "title": "搬入経路の変更",
+      "status": "報告",
       "result": "学内行事に伴い、10/12〜10/14は北門から搬入する。",
-      "actions": [ { "task": "学校側へ搬入計画を提出", "owner": "SC", "due": "2026-10-07" } ]
+      "actions": [
+        {
+          "task": "学校側へ搬入計画を提出",
+          "owner": "SC",
+          "due": "2026-10-07"
+        }
+      ]
     }
   ],
   "progress": [
-    { "type": "図面", "id": "意匠図1-18", "name": "AD1詳細", "revision": "", "state": "作成中", "owner": "SC", "due": "", "note": "無目付センサーで作図" }
+    {
+      "kind": "①施工図",
+      "trade": "建築",
+      "id": "",
+      "name": "AD1詳細（意匠図1-18）",
+      "flag": "その他",
+      "stage": "",
+      "reason": "センサー位置が未決",
+      "next": "SC：無目付センサーで作図",
+      "owner": "SC",
+      "new_plan_date": "",
+      "list_update": ""
+    },
+    {
+      "kind": "②製作図",
+      "trade": "建築",
+      "id": "タジマ-1",
+      "name": "ステンレス製建具",
+      "flag": "遅延",
+      "stage": "受図待ち",
+      "reason": "業者の作図遅れ",
+      "next": "SC：業者に出図日を確認",
+      "owner": "SC",
+      "new_plan_date": "2026-10-09",
+      "list_update": "施工予定日を2026-10-09に変更"
+    }
   ],
   "open_items": [
-    { "key": "第1回-No.2", "title": "SG1納まり", "owner": "NS", "due": "2026-10-09", "since": "第1回", "latest": "NS回答待ち" },
-    { "key": "第1回-No.3", "title": "AD1センサー位置", "owner": "SC", "due": "", "since": "第1回", "latest": "光天井割付確定後に再協議" }
+    {
+      "key": "第1回-No.2",
+      "title": "SG1納まり",
+      "owner": "NS",
+      "due": "2026-10-09",
+      "since": "第1回",
+      "latest": "NS回答待ち"
+    },
+    {
+      "key": "第1回-No.3",
+      "title": "AD1センサー位置",
+      "owner": "SC",
+      "due": "",
+      "since": "第1回",
+      "latest": "光天井割付確定後に再協議"
+    }
   ],
-  "closed": [ { "key": "第1回-No.6", "title": "SSD取付固定方法", "closed_at": "第2回", "conclusion": "火無工法・ビス固定で承認" } ],
-  "next_meeting": { "date": "2026-10-09", "weekday": "金", "start": "15:00", "end": "15:30", "place": "現場事務所 会議室" },
-  "next_next_meeting": { "date": "2026-10-16", "weekday": "金", "start": "15:00", "end": "15:30", "place": "現場事務所 会議室" },
+  "closed": [
+    {
+      "key": "第1回-No.6",
+      "title": "SSD取付固定方法",
+      "closed_at": "第2回",
+      "conclusion": "火無工法・ビス固定で承認"
+    }
+  ],
+  "next_meeting": {
+    "date": "2026-10-09",
+    "weekday": "金",
+    "start": "15:00",
+    "end": "15:30",
+    "place": "現場事務所 会議室"
+  },
+  "next_next_meeting": {
+    "date": "2026-10-16",
+    "weekday": "金",
+    "start": "15:00",
+    "end": "15:30",
+    "place": "現場事務所 会議室"
+  },
   "markdown": "# 椙山改修 第2回 定例会議 議事録（2026-10-02）\n（省略）",
   "open_items_markdown": "# 椙山改修 未決事項一覧（第2回 2026-10-02 時点・自動更新）\n（省略）"
 }
