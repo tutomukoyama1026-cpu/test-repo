@@ -2,7 +2,7 @@
 #
 # 開催日は、文字起こしのファイル名の先頭の日付（6 桁の YYMMDD。8 桁も可）、
 # なければ 00_受付 に置いた日（日本時間）とする。
-# 901_総合定例会議資料 の直下から「{開催日}_第NN回_定例」フォルダを探す。
+# 901_総合定例会議資料 の直下から「{開催日}_第NN回_定例会議」フォルダを探す。
 # レシピは「同時実行数 1」で動かす。先の実行が同じ日の文字起こしをまとめて移した場合、
 # 後の実行は already_processed=true で何もせずに終わる。
 #
@@ -47,7 +47,7 @@ def main(input):
         if m and item.get("type", "folder") == "folder":
             folder, result["number"] = item, m.group(1).zfill(2)
     if not folder:
-        result["log"] = f"定例のフォルダが見つかりません（901 に「{date}_第NN回_定例」フォルダがありません）"
+        result["log"] = f"定例のフォルダが見つかりません（901 に「{date}_第NN回_定例会議」フォルダがありません）"
         return result
 
     ids = [i["id"] for i in sorted(inbox, key=lambda i: i["created_at"]) if jst_date(i["name"], i["created_at"]) == date]
