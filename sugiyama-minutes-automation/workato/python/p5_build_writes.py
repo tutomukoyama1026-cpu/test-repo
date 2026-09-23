@@ -15,7 +15,7 @@
 #       number         回数（2桁）
 # 出力  ok, writes（[{"address": "V17:V20", "values": [[...], ...]}] の JSON）,
 #       markdown, open_items_markdown, next_meeting_date（YYYY-MM-DD）,
-#       next_meeting_file_date（YYYYMMDD）, next_meeting_source（会議の発言／7日後）, log
+#       next_meeting_file_date（YYMMDD）, next_meeting_source（会議の発言／7日後）, log
 
 import json
 import re
@@ -211,7 +211,7 @@ def main(input):
         "markdown": data.get("markdown", ""),
         "open_items_markdown": data.get("open_items_markdown", ""),
         "next_meeting_date": next_date,
-        "next_meeting_file_date": next_date.replace("-", ""),
+        "next_meeting_file_date": next_date.replace("-", "")[2:],
         "next_meeting_source": source,
         "log": "\n".join(log),
     }

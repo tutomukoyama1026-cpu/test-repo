@@ -14,7 +14,7 @@
 #   transcript_items   文字起こしフォルダのファイル一覧（同上）
 #   folder_items       901_総合定例会議資料 直下のファイル一覧（[{"id","name"}] の JSON）
 # 出力
-#   already_processed, found, meeting_date（YYYYMMDD）, meeting_date_iso, number（2桁）,
+#   already_processed, found, meeting_date（YYMMDD）, meeting_date_iso, number（2桁）,
 #   agenda_id, issues_id, minutes_exists（この日の議事録がすでにある＝作り直し）,
 #   combine（つなげる文字起こし。[{"id","in_inbox","new_name"}] を作成日時の順に。JSON）, log
 
@@ -26,11 +26,12 @@ JST = timezone(timedelta(hours=9))
 
 
 def jst_date(name, created_at):
-    # ファイル名に 8 桁の日付があればそれを、なければ置いた日（日本時間）を開催日とする
-    m = re.search(r"(20\d{6})", name)
+    # ファイル名の先頭に日付（6 桁の YYMMDD。8 桁の YYYYMMDD も可）があればそれを、
+    # なければ置いた日（日本時間）を開催日とする
+    m = re.match(r"(?:20)?(\d{2}[01]\d[0-3]\d)(?!\d)", name)
     if m:
         return m.group(1)
-    return datetime.fromisoformat(created_at.replace("Z", "+00:00")).astimezone(JST).strftime("%Y%m%d")
+    return datetime.fromisoformat(created_at.replace("Z", "+00:00")).astimezone(JST).strftime("%y%m%d")
 
 
 def main(input):
@@ -45,7 +46,7 @@ def main(input):
         return result
 
     date = jst_date(input["transcript_name"], input["uploaded_at"])
-    result.update(meeting_date=date, meeting_date_iso=f"{date[:4]}-{date[4:6]}-{date[6:]}")
+    result.update(meeting_date=date, meeting_date_iso=f"20{date[:2]}-{date[2:4]}-{date[4:]}")
 
     agenda = issues = None
     number = ""
