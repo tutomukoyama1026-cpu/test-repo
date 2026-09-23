@@ -29,6 +29,11 @@ def to_no(s):
     return int(s) if s.isdigit() else None
 
 
+def mm(s):
+    # 分は2桁にそろえる（未記入の「●」などはそのまま）
+    return s.zfill(2) if s.isdigit() else s
+
+
 def main(input):
     v = json.loads(input["values"])
 
@@ -58,7 +63,7 @@ def main(input):
 
     info = {
         "date": f"{cell(v, 'F6')}年{cell(v, 'J6')}月{cell(v, 'L6')}日{cell(v, 'N6')}",
-        "time": f"{cell(v, 'F7')}:{cell(v, 'H7').zfill(2)}～{cell(v, 'K7')}:{cell(v, 'M7').zfill(2)}",
+        "time": f"{cell(v, 'F7')}:{mm(cell(v, 'H7'))}～{cell(v, 'K7')}:{mm(cell(v, 'M7'))}",
         "place": cell(v, "F8"),
     }
     agenda = {"project": cell(v, "C4"), "title": cell(v, "N1"), "meeting": info, "items": items, "roster": roster}

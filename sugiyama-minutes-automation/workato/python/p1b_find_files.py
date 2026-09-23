@@ -1,6 +1,8 @@
 # Pythonスニペット by Workato：定例フォルダの中のファイルの特定と、つなげる文字起こしの決定
 #
-# 定例フォルダの中から、議題（名前に「議題」を含む .xlsx）と課題リスト（「課題」を含む .xlsx）を探す。
+# 会議フォルダの中から、議題（名前に「議題」を含む .xlsx）と課題リスト（「課題」を含む .xlsx）を探す。
+# 課題リストは3種類の会議で共通の1つ。会議フォルダにコピーがなければ、
+# 902_課題リスト直下のこの日の課題リスト（{開催日}_課題リスト.xlsx）を使う。
 # 定例中に録音・文字起こしが止められると文字起こしが複数に分かれるので、
 # フォルダにすでに移した文字起こしと、00_受付 にあるこの日の文字起こしを、作成日時の順につなげる。
 #
@@ -10,6 +12,7 @@
 #   folder_items    定例フォルダの中のファイル一覧（[{"id","name","created_at"}] の JSON）
 #   inbox_items     00_受付 のファイル一覧（同上）
 #   inbox_ids       p1a の inbox_ids
+#   issues_root_items  902_課題リスト直下のファイル一覧（[{"id","name"}] の JSON）
 # 出力
 #   found, agenda_id, issues_id, minutes_exists（この回の議事録がすでにある＝作り直し）,
 #   combine（つなげる文字起こし。[{"id","in_inbox","new_name"}] を作成日時の順に。JSON）, log
@@ -29,13 +32,16 @@ def main(input):
 
     agenda = xlsx("議題", exclude="議事録")
     issues = xlsx("課題")
+    if not issues:
+        root = json.loads(input.get("issues_root_items") or "[]")
+        issues = next((i for i in root if i["name"] == f"{date}_課題リスト.xlsx"), None)
     minutes_exists = xlsx("議事録") is not None
     log = []
     if not agenda:
         return {"found": False, "agenda_id": "", "issues_id": "", "minutes_exists": minutes_exists, "combine": "[]",
-                "log": "定例フォルダに議題（名前に「議題」を含む Excel）が見つかりません"}
+                "log": "会議フォルダに議題（名前に「議題」を含む Excel）が見つかりません"}
     if not issues:
-        log.append("定例フォルダに課題リスト（名前に「課題」を含む Excel）が見つかりません。課題リストなしで続けます")
+        log.append(f"課題リストが見つかりません（会議フォルダにも、902 直下の {date}_課題リスト.xlsx にもありません）。課題リストなしで続けます")
 
     done = [dict(i, in_inbox=False) for i in items if i["name"].lower().endswith(".vtt")]
     new = [dict(i, in_inbox=True) for i in inbox]

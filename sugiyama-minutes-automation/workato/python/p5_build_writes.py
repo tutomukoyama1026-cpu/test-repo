@@ -2,7 +2,7 @@
 #
 # AI（LLM API）の回答から、議題ファイルに書き込むセルと値を作る。
 # 書き込み自体はレシピ側で、writes の1件ごとに Graph の range PATCH を呼ぶ。
-#   - 表題（N1）の「第N回」「議題」→「議事録」
+#   - 表題（N1）を「第N回　{会議の種類}議事録」にする
 #   - 各議題No の「打合せ結果」欄（V列）。議題の行数を超える分は最終行にまとめる
 #   - 議題外で出た案件（最終議題の後ろに追記）
 #   - 参加者名簿の 現地／WEB チェックボックス（リンク先の非表示列 AM・AN に TRUE。ほかは FALSE）
@@ -13,6 +13,7 @@
 #       llm_text       LLM API の回答（JSON。前後の説明文やコードブロック記号があってもよい）
 #       meeting_date   開催日（YYYY-MM-DD）
 #       number         回数（2桁）
+#       meeting_type   会議の種類（総合定例会議／定例会議／分科会）
 # 出力  ok, writes（[{"address": "V17:V20", "values": [[...], ...]}] の JSON）,
 #       markdown, open_items_markdown, next_meeting_date（YYYY-MM-DD）,
 #       next_meeting_file_date（YYMMDD）, next_meeting_source（会議の発言／7日後）, log
@@ -123,8 +124,7 @@ def main(input):
 
     cells = {}  # "V17" -> 値
 
-    title = cell(v, "N1")
-    cells["N1"] = re.sub(r"第[0-9０-９]+回", f"第{int(input['number'] or 0)}回", title).replace("議題", "議事録")
+    cells["N1"] = f"第{int(input['number'] or 0)}回\u3000{input.get('meeting_type', '')}議事録"
 
     slots = find_slots(v)
     new_items = list(data.get("new_items") or [])
