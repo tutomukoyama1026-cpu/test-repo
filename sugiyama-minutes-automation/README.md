@@ -97,8 +97,8 @@ Pythonスニペット（`workato/python/`）はレシピの中に貼り付けて
 
 | ファイル | 役割 |
 |---|---|
-| `p1_find_files.py` | 文字起こしの名前か置いた日から開催日を決め、901 の議題・課題リストを探す |
-| `p2_vtt_to_text.py` | Teams の .vtt を「話者：発言」の形に整える |
+| `p1_find_files.py` | 文字起こしの名前か置いた日から開催日を決め、901 の議題・課題リストを探す。同じ日の文字起こしが複数あれば、つなげる順番を決める |
+| `p2_vtt_to_text.py` | Teams の .vtt を「話者：発言」の形に整える（複数あれば時刻の順につなげる） |
 | `p3_read_agenda.py` | 議題ファイル（A1:AN120 の表示文字列）から議題No・本文・参加者名簿・開催情報を読む |
 | `p4_read_issues.py` | 課題リスト（使用範囲の表示文字列）から課題No・概要・経過・期限を読む |
 | `p5_build_writes.py` | LLM の回答から、議題ファイルに書き込むセルと値（結果欄・表題・出席チェック・次回開催）、議事録要約、次回定例日を作る |
@@ -107,14 +107,16 @@ Pythonスニペット（`workato/python/`）はレシピの中に貼り付けて
 
 Graph の呼び出しは、SharePoint コネクションのカスタムアクション（図面リストへの書き込みと同じ方法）で行う。`{ブック}` は `/sites/{サイトID}/drive/items/{作業ファイルのID}/workbook`。
 
+**レシピの設定で「同時実行数」を 1 にする。** 定例中に録音・文字起こしが止められると文字起こしが複数に分かれ、00_受付 に同時に置かれることがある。同時実行数 1 なら、先の実行が同じ日の文字起こしをまとめてつなげて移し、後の実行は `already_processed` で何もせずに終わる。あとから追加されたときは、その日の全部の文字起こしで議事録を作り直す（新しい版として上書き）。
+
 | # | アクション | 設定・ポイント |
 |---|---|---|
 | T | トリガー：Box「フォルダに新しいファイル」 | 工事設定の受付フォルダ。Box の Webhook に受付フォルダを追加する |
 | 1 | ルックアップテーブル：工事設定を検索 | 受付フォルダID で検索 |
 | 2 | 条件 | 拡張子が `.vtt` でなければ、WowTalk に「文字起こしは .vtt でダウンロードして置き直してください」と通知して終了（ファイルは受付に残す） |
-| 3 | Box：フォルダ内のファイル一覧（定例資料フォルダ） → Python `p1_find_files` | `folder_items` は一覧の id と name を JSON にして渡す。`found` が false なら、ログを WowTalk に通知して終了（ファイルは受付に残す） |
-| 4 | Box：ファイルのダウンロード（文字起こし） → Python `p2_vtt_to_text` | |
-| 5 | Box：ファイルの移動・名前の変更 | 文字起こしを文字起こしフォルダへ、名前を `transcript_new_name` に（**受付の外へ出す**） |
+| 3 | Box：フォルダ内のファイル一覧 ×3（受付・文字起こし・定例資料フォルダ） → Python `p1_find_files` | 一覧の id・name・created_at を JSON にして渡す。`already_processed` が true なら何もせず終了。`found` が false なら、ログを WowTalk に通知して終了（ファイルは受付に残す） |
+| 4 | 繰り返し（`combine` の各要素）：Box：ファイルのダウンロード → 中身を配列に集める → Python `p2_vtt_to_text` | `vtts` に配列を JSON にして渡す |
+| 5 | 繰り返し（`combine` のうち `in_inbox` が true のもの）：Box：ファイルの移動・名前の変更 | 文字起こしフォルダへ、名前を `new_name` に（**受付の外へ出す**） |
 | 6 | Box：議題をダウンロード → SharePoint：作業フォルダにアップロード | 名前 `{meeting_date}_議題.xlsx` |
 | 7 | Graph `GET {ブック}/worksheets?$select=name,position` | position 0 のシート名を覚える（議事録フォーマットは「打合せ記録 」と末尾に空白がある） |
 | 8 | Graph `GET {ブック}/worksheets('{シート名}')/range(address='A1:AN120')?$select=text` → Python `p3_read_agenda` | `values` に `text` を JSON にして渡す |
@@ -123,12 +125,12 @@ Graph の呼び出しは、SharePoint コネクションのカスタムアクシ
 | 11 | LLM API：テキスト生成 | プロンプトは `prompts/01_議事録作成プロンプト.md`。長い文字起こしを扱えるモデル（Claude など）を選ぶ |
 | 12 | Python `p5_build_writes` | `values` は手順8と同じもの。`ok` が false なら、ログを WowTalk に通知して終了 |
 | 13 | 繰り返し（`writes` の各要素） → Graph `PATCH {ブック}/worksheets('{シート名}')/range(address='{address}')` | 本文 `{"values": {values}}` |
-| 14 | SharePoint：議題の作業ファイルをダウンロード → Box：アップロード | 定例資料フォルダに `{meeting_date}_第{number}回_議事録.xlsx` |
-| 15 | Box：アップロード ×2 | `{meeting_date}_第{number}回_議事録要約.md`（`markdown`）、`最新_未決事項一覧.md`（`open_items_markdown`。あれば新しい版としてアップロード） |
-| 16 | 課題リストがあるとき：Box：課題リストフォルダ直下の .xlsx を OLD へ移動 | 運用ルール⑤ |
+| 14 | SharePoint：議題の作業ファイルをダウンロード → Box：アップロード | 定例資料フォルダに `{meeting_date}_第{number}回_議事録.xlsx`（`minutes_exists` のときは新しい版としてアップロード） |
+| 15 | Box：アップロード ×2 | `{meeting_date}_第{number}回_議事録要約.md`（`markdown`）、`最新_未決事項一覧.md`（`open_items_markdown`）。どちらも、あれば新しい版としてアップロード |
+| 16 | 課題リストがあるとき：Box：課題リストフォルダ直下の `{meeting_date}_課題リスト.xlsx` を OLD へ移動 | 運用ルール⑤。作り直しのときはすでに移してあるので、なければ飛ばす |
 | 17 | 同上：Graph `PATCH {ブック}/worksheets('課題リスト')/range(address='A7:P{last_row}')/format/font` | 本文 `{"color": "#000000"}`（全部黒字に戻す） |
 | 18 | 同上：Graph `PATCH {ブック}/worksheets('課題リスト')/range(address='O1')` | 本文 `{"values": [["{次回定例日 YYYY/M/D}"]]}` |
-| 19 | 同上：SharePoint：課題リストの作業ファイルをダウンロード → Box：アップロード | 課題リストフォルダに `{next_meeting_file_date}_課題リスト.xlsx` |
+| 19 | 同上：SharePoint：課題リストの作業ファイルをダウンロード → Box：アップロード | 課題リストフォルダに `{next_meeting_file_date}_課題リスト.xlsx`（あれば新しい版としてアップロード） |
 | 20 | 共通レシピ：wowtalkチャット送信 | 「第{回}回 議事録と次回の課題リストを格納しました」＋ Box のリンク＋ `log`（名簿にない参加者、結果欄の不足、次回定例日を7日後にした など）＋ 議事録要約の「※要確認」の件数 |
 | 21 | SharePoint：作業ファイルを削除 | 議題・課題リストの2つ |
 | E | エラー時（Monitor ブロック） | 共通レシピ：エラー通知。文字起こしが受付に残っていれば、置き直すだけでやり直せる |
@@ -143,7 +145,7 @@ Teams の文字起こしを Microsoft Graph から取り出すキーを、小山
 | 1 | HTTP（Microsoft Graph、小山のアカウントの委任アクセス） `GET /me/onlineMeetings/{会議ID}/transcripts` | `{会議ID}` は工事設定に持つ。定例は毎回同じ Teams 会議（定期的な予定）なので、最初に一度 `GET /me/onlineMeetings?$filter=JoinWebUrl eq '{定例の参加URL}'` で調べて登録する |
 | 2 | データテーブル「取得済み文字起こし」と照合 | まだ取得していない文字起こし ID だけを残す（二重に格納しないため） |
 | 3 | 繰り返し：`GET /me/onlineMeetings/{会議ID}/transcripts/{ID}/content?$format=text/vtt` | |
-| 4 | Box：アップロード | 00_受付 に `{createdDateTime を日本時間にした YYYYMMDD}_定例_文字起こし.vtt`（先頭の日付で p1 が開催日を決める） |
+| 4 | Box：アップロード | 00_受付 に `{createdDateTime を日本時間にした YYYYMMDD}_定例_文字起こし_{文字起こしIDの末尾6文字}.vtt`（先頭の日付で p1 が開催日を決める。分かれた文字起こしは REC_定例議事録作成 がつなげる） |
 | 5 | データテーブルに文字起こし ID を記録 | |
 | E | エラー時 | 共通レシピ：エラー通知。取得できなかったときは、従来どおり小山が手で 00_受付 に置けばよい |
 
