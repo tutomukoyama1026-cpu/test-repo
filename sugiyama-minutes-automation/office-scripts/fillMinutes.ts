@@ -6,7 +6,7 @@
  *   - 年月日・時間・場所
  *   - 各議題No の「打合せ結果」欄（V列）
  *   - 議題外で出た案件（最終議題の後ろに追記）
- *   - 参加者名簿の 現地／WEB 欄にチェック（セル内チェックボックスなら TRUE、なければ ○）
+ *   - 参加者名簿の 現地／WEB チェックボックス（リンク先の AM・AN 列に TRUE）
  *   - 次回・次々回開催
  * 議題本文（F〜T列）には一切書き込まない。
  */
@@ -53,7 +53,9 @@ const RESULT_COL = "V";
 const LINE_WIDTH = 34;
 const ROSTER_FIRST_ROW = 88;
 const ROSTER_LAST_ROW = 120;
-const MARK = "○";
+// 名簿のチェックボックスのリンク先（印刷範囲外の非表示列）
+const ONSITE_LINK_COL = "AM";
+const WEB_LINK_COL = "AN";
 
 function main(workbook: ExcelScript.Workbook, minutesJson: string): string {
   const data: Minutes = JSON.parse(minutesJson);
@@ -186,6 +188,11 @@ function lastUsedRow(ws: ExcelScript.Worksheet, first: number, last: number): nu
 }
 
 function markAttendees(ws: ExcelScript.Worksheet, attendees: Attendee[], log: string[]) {
+  // 議題ブックに前回のチェックが残っていても、今回の出席者だけにチェックが付くよう先に外す
+  const rows = ROSTER_LAST_ROW - ROSTER_FIRST_ROW + 1;
+  const cleared: boolean[][] = Array.from({ length: rows }, () => [false, false]);
+  ws.getRange(`${ONSITE_LINK_COL}${ROSTER_FIRST_ROW}:${WEB_LINK_COL}${ROSTER_LAST_ROW}`).setValues(cleared);
+
   const names = ws.getRange(`G${ROSTER_FIRST_ROW}:G${ROSTER_LAST_ROW}`).getValues().map((r) => normalize(String(r[0])));
   for (const a of attendees) {
     const i = names.indexOf(normalize(a.name));
@@ -193,9 +200,7 @@ function markAttendees(ws: ExcelScript.Worksheet, attendees: Attendee[], log: st
       log.push(`参加者「${a.name}」が名簿にありません`);
       continue;
     }
-    const cell = ws.getRange(`${a.mode === "WEB" ? "E" : "C"}${ROSTER_FIRST_ROW + i}`);
-    // セル内チェックボックス（挿入→チェックボックス）なら TRUE、それ以外は ○
-    cell.setValue(typeof cell.getValue() === "boolean" ? true : MARK);
+    ws.getRange(`${a.mode === "WEB" ? WEB_LINK_COL : ONSITE_LINK_COL}${ROSTER_FIRST_ROW + i}`).setValue(true);
   }
 }
 
