@@ -96,10 +96,24 @@
   ],
   "progress": [
     {
+      "kind": "①施工図",
+      "trade": "建築",
+      "id": "",
+      "name": "AD1詳細（意匠図1-18）",
+      "flag": "その他",
+      "stage": "",
+      "reason": "センサー位置が未決",
+      "next": "SC：無目付センサーで作図",
+      "owner": "SC",
+      "new_plan_date": "",
+      "list_update": ""
+    },
+    {
       "kind": "②製作図",
       "trade": "建築",
       "id": "タジマ-1",
       "name": "ステンレス製建具",
+      "flag": "遅延",
       "stage": "受図待ち",
       "reason": "業者の作図遅れ",
       "next": "SC：業者に出図日を確認",
