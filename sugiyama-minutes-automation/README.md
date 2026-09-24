@@ -207,6 +207,7 @@ Teams の会議を分けられず、1つの会議で続けて開く日（例：�
 | `templates/椙山改修_課題リスト_ひな形.xlsx` | 空の課題リスト |
 | `workato/python/p1a・p1b・p2〜p7` | レシピに貼り付ける Pythonスニペット |
 | `workato/窓口依頼_文字起こしキー.md` | 文字起こし取得のキー払い出しの依頼メール（小山から送る） |
+| `workato/窓口問い合わせ_定例議事録自動化.md` | 作り始める前に窓口へ確認する問い合わせメール（小山から送る） |
 | `prompts/01_議事録作成プロンプト.md` | LLM API に渡すプロンプトと回答の形式 |
 | `assistant/AIアシスタント指示文_参考.md` | AI アシスタント（Lightblue）に読み込ませる資料と指示文の参考 |
 | `samples/sample_ai_output.json` | LLM の回答例（動作確認用） |
