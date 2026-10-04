@@ -1,12 +1,14 @@
-﻿# ダウンロードフォルダのファイルを種類ごとのサブフォルダに振り分けるスクリプト(Windows用)
+﻿# ダウンロードフォルダやデスクトップのファイルを種類ごとのサブフォルダに振り分けるスクリプト(Windows用)
 #
-# 普段は同じフォルダの「organize-downloads.bat」をダブルクリックして使います。
+# 普段は同じフォルダの「organize-downloads.bat」「organize-desktop.bat」をダブルクリックして使います。
 #   -Folder <パス>  整理するフォルダ(省略時はダウンロードフォルダ)
+#   -Desktop        デスクトップを整理する
 #   -Run            確認なしで実際に移動する
 #   -Undo           直前の整理を元に戻す
 
 param(
     [string]$Folder,
+    [switch]$Desktop,
     [switch]$Run,
     [switch]$Undo
 )
@@ -25,8 +27,8 @@ $Categories = [ordered]@{
     'プログラム'     = '.py .js .ts .html .htm .css .json .java .c .cpp .sh .bat .ps1'
 }
 $Other = 'その他'
-# ダウンロード途中のファイルは動かさない
-$Skip = '.crdownload .part .partial .tmp .download' -split ' '
+# ダウンロード途中のファイルと、アプリを開くためのショートカットは動かさない
+$Skip = '.crdownload .part .partial .tmp .download .lnk .url' -split ' '
 $LogName = '.organize_log.json'
 
 function Get-DownloadsFolder {
@@ -35,6 +37,13 @@ function Get-DownloadsFolder {
         if ($path -and (Test-Path -LiteralPath $path)) { return $path }
     } catch { }
     return Join-Path $env:USERPROFILE 'Downloads'
+}
+
+function Get-DesktopFolder {
+    # OneDrive にデスクトップを同期している場合もこれで正しい場所が取れる
+    $path = [Environment]::GetFolderPath('Desktop')
+    if ($path) { return $path }
+    return Join-Path $env:USERPROFILE 'Desktop'
 }
 
 function Get-Category([string]$ext) {
@@ -62,7 +71,8 @@ function Invoke-Organize([string]$target, [bool]$run) {
     $files = @(Get-ChildItem -LiteralPath $target -File | Where-Object {
         -not $_.Name.StartsWith('.') -and
         -not ($_.Attributes -band [IO.FileAttributes]::Hidden) -and
-        -not ($Skip -contains $_.Extension.ToLower())
+        -not ($Skip -contains $_.Extension.ToLower()) -and
+        -not (@('desktop.ini', 'thumbs.db') -contains $_.Name.ToLower())
     } | Sort-Object Name)
 
     if ($files.Count -eq 0) {
@@ -111,7 +121,7 @@ function Invoke-Organize([string]$target, [bool]$run) {
     try { (Get-Item -LiteralPath $logPath -Force).Attributes += 'Hidden' } catch { }
 
     Write-Host ''
-    Write-Host ("{0} 個のファイルを移動しました。元に戻すには「undo-organize.bat」を実行してください。" -f $moves.Count)
+    Write-Host ("{0} 個のファイルを移動しました。元に戻すには「{1}」を実行してください。" -f $moves.Count, $UndoBat)
 }
 
 function Invoke-Undo([string]$target) {
@@ -141,6 +151,11 @@ function Invoke-Undo([string]$target) {
     Write-Host '元に戻しました。'
 }
 
+$UndoBat = 'undo-organize.bat'
+if ($Desktop) {
+    $Folder = Get-DesktopFolder
+    $UndoBat = 'undo-desktop.bat'
+}
 if (-not $Folder) { $Folder = Get-DownloadsFolder }
 if (-not (Test-Path -LiteralPath $Folder -PathType Container)) {
     Write-Host "フォルダが見つかりません: $Folder"
