@@ -1,3 +1,4 @@
 *.ps1 -text
 *.bat -text
 *.txt -text
+.gitattributes export-ignore
