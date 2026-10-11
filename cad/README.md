@@ -8,6 +8,7 @@
 | `out/*_preview.png` | プレビュー画像 |
 | `build.py` | 寸法パラメータ（`B` / `M`）とモデル生成。`python build.py` で再生成 |
 | `drawing.py` | DXF図面の生成 |
+| `out/drawings.pdf` / `make_pdf.py` | 図面PDF（A3横・2枚）とその生成スクリプト |
 
 ## 主要寸法（mm）
 **ホウキ**（写真1・2から実測）
