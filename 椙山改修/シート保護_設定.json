@@ -1,0 +1,30 @@
+{
+ "説明": "2026/10/10 時点のシート保護の状態。復元するときは各シートの sheetData 直後に sheetProtection 要素を戻す（セルのロック書式は残してある）。パスワード 0000（ハッシュ CC6F）。",
+ "sheets": {
+  "①施工図リスト": {
+   "sheetProtection": "<sheetProtection password=\"CC6F\" sheet=\"1\" objects=\"1\" scenarios=\"1\"/>",
+   "ロック列（データ行）": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "②製作図リスト": {
+   "sheetProtection": "<sheetProtection password=\"CC6F\" sheet=\"1\" objects=\"1\" scenarios=\"1\"/>",
+   "ロック列（データ行）": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "③計画書要領書リスト": {
+   "sheetProtection": "<sheetProtection password=\"CC6F\" sheet=\"1\" objects=\"1\" scenarios=\"1\"/>",
+   "ロック列（データ行）": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  }
+ }
+}
