@@ -1,5 +1,5 @@
 """K1211（SK棚板）に、両側壁ブラケット固定のバー案を追記する。
-バー: 奥壁仕上面から 325、FL+1650、φ25（両端フランジ ビス留め・両側下地補強）
+バー: 奥壁仕上面から 325、FL+1775（モップ掛と同高さ・既存下地補強内）、φ25（両端フランジ ビス留め・両側下地補強）
 使い方: python bar.py <FAMF-K1211-INO.dxf> <出力フォルダ>
 """
 import sys
@@ -18,7 +18,7 @@ SRC, OUT = Path(sys.argv[1]), Path(sys.argv[2])
 OUT.mkdir(parents=True, exist_ok=True)
 
 FL_Y = 1114.0
-BAR_D, BAR_FL, BAR_FROM_BACK = 25.0, 1650.0, 325.0
+BAR_D, BAR_FL, BAR_FROM_BACK = 25.0, 1775.0, 325.0   # 高さはモップ掛と同じ（既存下地補強内）
 FLANGE_D, FLANGE_T = 60.0, 12.0
 CLOTH = 450.0                   # 掛けた布・手袋の垂れ下がり（想定）
 BACK_Y = 6304.8                 # 平面図: 奥壁仕上面
@@ -61,7 +61,7 @@ for room, R in ROOMS.items():
     pl(rect(sx - 40, by - CLOTH, sx + 40, by - r), AD)
     dim(base=(0, by + 230), p1=(R["side_back"], by), p2=(sx, by))
     gap = R["rail_from_back"] - BAR_FROM_BACK - FLANGE_D / 2
-    txt(f"固定バー φ25（SUS想定）\\P両端フランジ ビス留め\\P両側下地補強（別途）\\P奥壁から325　FL+1650\\Pモップ掛 端部まで {gap:.0f}",
+    txt(f"固定バー φ25（SUS想定）\\P両端フランジ ビス留め\\P既存の両側下地補強内\\P奥壁から325　FL+{BAR_FL:.0f}（モップ掛と同高さ）\\Pモップ掛 端部まで {gap:.0f}",
         R["side_back"] + 60, by - 560, 50)
     # ---- 平面図: バー + フランジ
     pxl, pxr = R["plan"]
@@ -89,6 +89,6 @@ with PdfPages(OUT / f"{stem}.pdf") as pdf:
                  config=Configuration(color_policy=ColorPolicy.COLOR_SWAP_BW)).draw_layout(rd.modelspace(), finalize=False)
         ax.set_xlim(lim[0], lim[2]); ax.set_ylim(lim[1], lim[3]); ax.set_aspect("equal"); ax.axis("off")
         fig.text(0.03, 0.95, title, fontsize=18)
-        fig.text(0.03, 0.925, "緑線＝追記。バー：奥壁から325・FL+1650・φ25、両側の壁にフランジでビス留め（突っ張りではない）", fontsize=10, color="#555")
+        fig.text(0.03, 0.925, f"緑線＝追記。バー：奥壁から325・FL+{BAR_FL:.0f}（モップ掛と同高さ）・φ25、両側の壁にフランジでビス留め（突っ張りではない）", fontsize=10, color="#555")
         pdf.savefig(fig); plt.close(fig)
 print("ok")
