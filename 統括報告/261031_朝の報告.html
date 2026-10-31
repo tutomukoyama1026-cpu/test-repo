@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>椙山改修 朝の報告 10/31</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 現場の掲示板：紺の帯に、超過＝赤・7日以内＝橙の札。要約→表→やることの順 */
+  --bg:#f4f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878; --line:#d9dee6;
+  --accent:#1f3a5f; --accent-ink:#ffffff;
+  --crit:#c62828; --crit-bg:#fdecec; --warn:#b26a00; --warn-bg:#fff4e0; --ext:#0f6e8c; --ext-bg:#e3f3f8;
+  --display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
+    --accent:#2c4f7c; --accent-ink:#ffffff;
+    --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --ext:#5ec6e6; --ext-bg:#12313b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
+  --accent:#2c4f7c; --accent-ink:#ffffff;
+  --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --ext:#5ec6e6; --ext-bg:#12313b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+header{background:var(--accent);color:var(--accent-ink);padding:20px 20px 18px}
+header .wrap{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:baseline;justify-content:space-between}
+h1{font-family:var(--display);font-weight:900;font-size:24px;margin:0;text-wrap:balance}
+header p{margin:0;font-size:13px;opacity:.85}
+.wrap{max-width:980px;margin:0 auto}
+main{padding:20px 16px 40px;display:grid;gap:24px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--muted);border-radius:6px;padding:12px 14px}
+.tile.crit{border-left-color:var(--crit)} .tile.warn{border-left-color:var(--warn)}
+.tile b{display:block;font-family:var(--display);font-size:32px;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile.crit b{color:var(--crit)} .tile.warn b{color:var(--warn)}
+.tile span{font-size:13px;color:var(--muted)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 4px;text-wrap:balance}
+h3{font-size:15px;margin:16px 0 6px;display:flex;gap:8px;align-items:center}
+.src{font-size:12px;color:var(--muted);margin:0 0 8px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
+td.d{white-space:nowrap;font-weight:700}
+td.no{white-space:nowrap;color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.pill.crit{background:var(--crit-bg);color:var(--crit)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.ext{background:var(--ext-bg);color:var(--ext)}
+.note{font-size:13px;color:var(--muted)}
+ol.todo{margin:0;padding-left:1.4em;display:grid;gap:8px}
+ol.todo li strong{color:var(--crit)}
+footer{font-size:12px;color:var(--muted);text-align:center;padding-bottom:24px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>椙山改修 朝の報告</h1>
+  <p>2026/10/31（土）時点　統括アシスタント</p>
+</div></header>
+<main class="wrap">
+
+<div class="tiles">
+  <div class="tile crit"><b>10</b><span>図面・計画書 期日超過</span></div>
+  <div class="tile warn"><b>8</b><span>図面・計画書 7日以内</span></div>
+  <div class="tile"><b>10<small style="font-size:16px">/19</small></b><span>課題 未完了</span></div>
+  <div class="tile crit"><b>1</b><span>課題 期限超過</span></div>
+</div>
+
+<section>
+  <h2>図面・計画書リスト</h2>
+  <p class="src">261031-19_椙山食堂改修_図面・計画書リスト.xlsx　実績欄が空欄で、予定日が今日以前または7日以内のもの（1行につき一番手前の工程）</p>
+
+  <h3><span class="pill crit">期日超過</span>10件</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>予定日</th><th>超過</th><th>番号</th><th>図面名称</th><th>止まっている工程</th></tr></thead>
+    <tbody>
+      <tr><td class="d">10/15</td><td>16日</td><td class="no">三友-15</td><td>西側 壁アルミルーバー（天井裏下地込み）</td><td>受領図の返却</td></tr>
+      <tr><td class="d">10/15</td><td>16日</td><td class="no">三和-6</td><td>ガラリ（東側デッキ）（追加）</td><td>受図</td></tr>
+      <tr><td class="d">10/19</td><td>12日</td><td class="no">タジマ-1</td><td>ステンレス製建具</td><td>受領図の返却</td></tr>
+      <tr><td class="d">10/20</td><td>11日</td><td class="no">MIDIC-10</td><td>天井・壁 吸音ルーバー（ヒガノ）</td><td>受領図の返却</td></tr>
+      <tr><td class="d">10/26</td><td>5日</td><td class="no">仕上-1</td><td>１階平面詳細図（1/50）</td><td>受領図の返却</td></tr>
+      <tr><td class="d">10/27</td><td>4日</td><td class="no">仕上-2</td><td>１階天井伏図（1/50）</td><td>打合図の返却</td></tr>
+      <tr><td class="d">10/29</td><td>2日</td><td class="no">仕上-3</td><td>食堂展開図（1/50）</td><td>受図</td></tr>
+      <tr><td class="d">10/29</td><td>2日</td><td class="no">三和-5</td><td>SD点検口（東側デッキ）（追加）</td><td>打合図の返却</td></tr>
+      <tr><td class="d">10/30</td><td>1日</td><td class="no">三友-8</td><td>東側 吹抜け部天井下地鉄骨</td><td>受図</td></tr>
+      <tr><td class="d">10/30</td><td>1日</td><td class="no">三友-10</td><td>東側 吸音ルーバー壁⑤通り部天端塞ぎ</td><td>受図</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="pill warn">7日以内</span>8件</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>予定日</th><th>残り</th><th>番号</th><th>図面・計画書名称</th><th>次の工程</th></tr></thead>
+    <tbody>
+      <tr><td class="d">11/2</td><td>2日</td><td class="no">仕上-4</td><td>解体範囲図（床・壁・天井）</td><td>受領図を監理者へ提出</td></tr>
+      <tr><td class="d">11/2</td><td>2日</td><td class="no">三友-16</td><td>西側 ステンレスカウンター</td><td>受図</td></tr>
+      <tr><td class="d">11/2</td><td>2日</td><td class="no">MIDIC-3</td><td>西側 ステンレスカウンター</td><td>受図</td></tr>
+      <tr><td class="d">11/2</td><td>2日</td><td class="no">計-1</td><td>総合施工計画書</td><td>監理者の承認</td></tr>
+      <tr><td class="d">11/2</td><td>2日</td><td class="no">計-7</td><td>金属工事施工計画書</td><td>現場へ提出</td></tr>
+      <tr><td class="d">11/4</td><td>4日</td><td class="no">計-14</td><td>内装工事（LGS・ボード工事）施工計画書</td><td>現場へ提出</td></tr>
+      <tr><td class="d">11/6</td><td>6日</td><td class="no">三和-1</td><td>木製パネル張ハンガードア</td><td>受領図の返却（再作図版を 10/30 に再提出）</td></tr>
+      <tr><td class="d">11/6</td><td>6日</td><td class="no">三和-3</td><td>アルミ自動ドア</td><td>受領図の返却</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>課題リスト</h2>
+  <p class="src">261030_課題リスト（1030_定例後）.xlsx　未完了 10件（全19件）。次回定例 11/6</p>
+
+  <h3><span class="pill crit">期限超過</span>1件</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>No.</th><th>期限</th><th>課題</th><th>最新の経過</th></tr></thead>
+    <tbody>
+      <tr><td class="no">6</td><td class="d">10/16</td><td>アスベスト含有建材事前調査</td><td>10/16 見積提出、10/28 SJ 社内決裁完了の連絡あり → 完了にするか確認</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="pill warn">11/6 期限</span>9件</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>No.</th><th>課題</th><th>検討</th><th>残っていること</th></tr></thead>
+    <tbody>
+      <tr><td class="no">3</td><td>ウッドデッキ据付後の排水溝の清掃性 <span class="pill ext">外構</span></td><td>NS・SC</td><td>点検口が足りるか NS が確認</td></tr>
+      <tr><td class="no">4</td><td>食堂出入口の階段下の側溝の水たまり <span class="pill ext">外構</span></td><td>NS・SC</td><td>NS が確認</td></tr>
+      <tr><td class="no">10</td><td>カウンター席オークUC 乱張りの方向</td><td>NS・SJ</td><td>集成材に決定。張り方向は製作図でランダムに指示</td></tr>
+      <tr><td class="no">12</td><td>パーゴラの支柱色・テント色 <span class="pill ext">外構</span></td><td>NS・SJ</td><td>支柱ステンカラー、幕ライトグレー（パラソルの色次第）</td></tr>
+      <tr><td class="no">13</td><td>2階プランターの方針</td><td>NS・SJ・SC</td><td>室内側の撤去見積を見て SJ が判断</td></tr>
+      <tr><td class="no">14</td><td>キャンパスコモン ベースプレート固定アンカー <span class="pill ext">外構</span></td><td>NS・SC</td><td>試験斫りでシンダー厚を確認しアンカー長さを検討</td></tr>
+      <tr><td class="no">16</td><td>西エリア天井解体時の空調停止</td><td>SC</td><td>厨房事務室の空調ルートを SC が確認</td></tr>
+      <tr><td class="no">18</td><td>理事長プレゼン後の未決事項</td><td>NS・SJ・SC</td><td>フィルム色ミルキーホワイト（要確認）、ストリングカーテンのサンプル、メタカラーの色</td></tr>
+      <tr><td class="no">19</td><td>既存設備（オペレーター）の対応</td><td>NS・SC・SJ</td><td>復旧費用・撤去案を説明、費用の内訳を確認</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>次回定例（11/6）までにやること</h2>
+  <ol class="todo">
+    <li><strong>受領図の返却の催促</strong>：三友-15・タジマ-1・MIDIC-10 は10日以上返却がありません。仕上-1・仕上-2・三和-5 も返却待ちです。</li>
+    <li><strong>受図の遅れの確認</strong>：三和-6（16日超過）、仕上-3、三友-8、三友-10。作図業者・協力業者に状況を確認してください。</li>
+    <li><strong>11/2（月）期日の段取り</strong>：仕上-4 の受領図提出、計-1 の承認、計-7 の現場提出、三友-16・MIDIC-3 の受図。</li>
+    <li>三和-1 ハンガードアは再作図版を 10/30 に監理者へ再提出済みです。返却予定は 11/6 です。</li>
+    <li>課題 No.6（アスベスト）を完了にするか、ご判断ください。</li>
+    <li>課題 No.9 床目地色「濃灰」と No.18 フィルム色「ミルキーホワイト」がまだ要確認です。</li>
+  </ol>
+</section>
+
+<p class="note">期日の判定は図面・計画書リストの色分け（ピンク＝期日超過、オレンジ＝7日以内）と同じルールです。ファイルの数式に保存された計算結果を読んでいます。</p>
+</main>
+<footer>椙山女学園 星が丘キャンパス大学会館食堂リニューアル工事</footer>
+</body>
+</html>
