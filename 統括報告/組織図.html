@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>椙山改修 アシスタント組織図</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 朝の報告と同じ紺の帯。図は上から 小山さん→社長→担当2人→ファイル */
+  --bg:#f4f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878; --line:#d9dee6;
+  --accent:#1f3a5f; --accent-ink:#ffffff; --boss:#1f3a5f; --zu:#0f6e8c; --ka:#8a5a00;
+  --display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
+    --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
+  --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+header{background:var(--accent);color:var(--accent-ink);padding:20px 16px 18px}
+.wrap{max-width:980px;margin:0 auto}
+h1{font-family:var(--display);font-weight:900;font-size:24px;margin:0;text-wrap:balance}
+header p{margin:2px 0 0;font-size:13px;opacity:.85}
+main{padding:20px 16px 40px;display:grid;gap:24px}
+section,figure{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;margin:0}
+h2{font-family:var(--display);font-size:19px;margin:0 0 10px}
+svg{width:100%;height:auto;display:block;color:var(--ink)}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+code{font-size:12px;background:var(--bg);padding:1px 4px;border-radius:3px;word-break:break-all}
+ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>椙山改修 アシスタント組織図</h1>
+  <p>2026/10/31 設置　統括アシスタント（社長）と担当2人</p>
+</div></header>
+<main class="wrap">
+
+<figure>
+<svg viewBox="0 0 760 560" role="img" aria-label="小山さんが社長に指示し、社長が図面・計画書リスト担当と課題リスト担当に振り分ける。担当はそれぞれのファイルを更新し、社長は両方を読んで毎朝報告する。">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-family="Noto Sans JP, sans-serif" fill="currentColor">
+    <!-- 小山さん -->
+    <rect x="290" y="16" width="180" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="380" y="40" text-anchor="middle" font-size="15" font-weight="700">小山さん</text>
+    <text x="380" y="60" text-anchor="middle" font-size="11" opacity=".7">指示・判断</text>
+
+    <!-- 小山⇄社長 -->
+    <line x1="355" y1="74" x2="355" y2="138" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="347" y="110" text-anchor="end" font-size="12">指示（チャット）</text>
+    <line x1="405" y1="138" x2="405" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="413" y="104" font-size="12">毎朝 5:47 の報告</text>
+    <text x="413" y="120" font-size="12">担当の質問を中継</text>
+
+    <!-- 社長 -->
+    <rect x="230" y="140" width="300" height="96" rx="10" fill="none" stroke="var(--boss)" stroke-width="3"/>
+    <text x="380" y="168" text-anchor="middle" font-size="16" font-weight="700" fill="var(--boss)">統括アシスタント（社長）</text>
+    <text x="380" y="190" text-anchor="middle" font-size="12">仕事の振り分け・push の順番管理</text>
+    <text x="380" y="208" text-anchor="middle" font-size="12">両リストを読んで報告（自分では編集しない）</text>
+    <text x="380" y="226" text-anchor="middle" font-size="11" opacity=".7">ブランチ claude/sugiyama-tokatsu</text>
+
+    <!-- 社長が読む -->
+    <path d="M342,486 L380,486 L380,248" fill="none" stroke="var(--boss)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <path d="M418,486 L380,486" fill="none" stroke="var(--boss)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <polygon points="380,240 375,250 385,250" fill="var(--boss)"/>
+    <text x="380" y="540" text-anchor="middle" font-size="12" fill="var(--boss)">社長が両方を読む（期日チェック・報告）</text>
+    <!-- 社長→担当 -->
+    <path d="M300,238 L300,270 L190,270 L190,318" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <path d="M460,238 L460,270 L570,270 L570,318" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <rect x="290" y="253" width="180" height="18" fill="var(--panel)"/>
+    <text x="380" y="266" text-anchor="middle" font-size="12">依頼（小山さんの言葉を引用）</text>
+    <text x="190" y="300" text-anchor="middle" font-size="11" opacity=".7">提出・返却・予定日・備考</text>
+    <text x="570" y="300" text-anchor="middle" font-size="11" opacity=".7">議事録・課題の追加／完了</text>
+
+    <!-- 担当 -->
+    <rect x="40" y="320" width="300" height="88" rx="10" fill="none" stroke="var(--zu)" stroke-width="2.5"/>
+    <text x="190" y="348" text-anchor="middle" font-size="15" font-weight="700" fill="var(--zu)">図面・計画書リスト担当</text>
+    <text x="190" y="370" text-anchor="middle" font-size="12">①施工図 ②製作図 ③計画書</text>
+    <text x="190" y="396" text-anchor="middle" font-size="11" opacity=".7">ブランチ claude/confident-bohr-tpkdbt</text>
+
+    <rect x="420" y="320" width="300" height="88" rx="10" fill="none" stroke="var(--ka)" stroke-width="2.5"/>
+    <text x="570" y="348" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ka)">課題リスト担当</text>
+    <text x="570" y="370" text-anchor="middle" font-size="12">定例・分科会の課題</text>
+    <text x="570" y="396" text-anchor="middle" font-size="11" opacity=".7">ブランチ claude/adoring-brahmagupta-1rck9y</text>
+
+    <!-- 担当→ファイル -->
+    <line x1="190" y1="410" x2="190" y2="456" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="198" y="438" font-size="12">更新・push</text>
+    <line x1="570" y1="410" x2="570" y2="456" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="578" y="438" font-size="12">更新・push</text>
+
+    <!-- ファイル -->
+    <rect x="40" y="458" width="300" height="56" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
+    <text x="190" y="482" text-anchor="middle" font-size="12" font-weight="700">YYMMDD_椙山食堂改修_</text>
+    <text x="190" y="500" text-anchor="middle" font-size="12" font-weight="700">図面・計画書リスト.xlsx</text>
+    <rect x="420" y="458" width="300" height="56" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
+    <text x="570" y="482" text-anchor="middle" font-size="12" font-weight="700">YYMMDD_課題リスト</text>
+    <text x="570" y="500" text-anchor="middle" font-size="12" font-weight="700">（注記）.xlsx</text>
+
+  </g>
+</svg>
+<figcaption>小山さんは社長にだけ話しかければよい。社長が内容で振り分け、担当がファイルを更新し、社長が両方を読んで報告する。点線は読み取りだけで、編集はしない。</figcaption>
+</figure>
+
+<section>
+  <h2>メンバーと役割</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>役</th><th>セッション</th><th>やること</th><th>入力元</th></tr></thead>
+    <tbody>
+      <tr><td>社長</td><td>椙山改修統括アシスタント</td><td>振り分け、push の順番管理、毎朝 5:47 の報告（緊急項目→全体）、担当の質問の中継</td><td>小山さんのチャット、両担当のファイル</td></tr>
+      <tr><td>図面担当</td><td>椙山改修：図面・計画書リスト</td><td>提出日・返却日・受図日・施工予定日・備考の入力、条件付き書式・備考の赤字の管理</td><td>eYACHO（03_現場・04_設計）、Box「NS確認」、金子さん・工藤さんのメール</td></tr>
+      <tr><td>課題担当</td><td>椙山改修：課題リスト</td><td>課題の追加・経過の追記（赤字）、完了日とグレー塗り、外構の水色、定例後の黒字化</td><td>議事録（打合せ記録）、小山さんの指示</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>運用のきまり</h2>
+  <ul>
+    <li>担当2人が同時に push しないよう、社長が片方の完了を確かめてから次を頼む。</li>
+    <li>担当は社長に直接返事ができない。社長が担当の様子を見に行き、質問があれば小山さんに中継する。</li>
+    <li>担当が社長経由の依頼を確認なしで進められるようにするには、小山さんが各担当のセッションで一度直接伝える（課題担当・図面担当とも未設定）。</li>
+    <li>備考に「発注済み」とある製作図は、期日を過ぎていても緊急項目に入れない。</li>
+  </ul>
+</section>
+</main>
+</body>
+</html>
