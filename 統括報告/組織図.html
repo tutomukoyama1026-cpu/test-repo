@@ -9,21 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* 朝の報告と同じ紺の帯。図は上から 小山さん→社長→担当3人→ファイル */
+  /* 朝の報告と同じ紺の帯。図は上から 小山さん→社長（両脇にチェック担当）→リスト担当3人→ファイル */
   --bg:#f4f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878; --line:#d9dee6;
-  --accent:#1f3a5f; --accent-ink:#ffffff; --boss:#1f3a5f; --zu:#0f6e8c; --ka:#8a5a00; --zo:#7a2e8a;
+  --accent:#1f3a5f; --accent-ink:#ffffff; --boss:#1f3a5f; --zu:#0f6e8c; --ka:#8a5a00; --zo:#7a2e8a; --ck:#2e7d32;
   --display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
   --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
-    --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; --zo:#d79be6; color-scheme:dark;
+    --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; --zo:#d79be6; --ck:#7fd38a; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644;
-  --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; --zo:#d79be6; color-scheme:dark;
+  --accent:#2c4f7c; --boss:#8fb4e6; --zu:#5ec6e6; --ka:#f0b75a; --zo:#d79be6; --ck:#7fd38a; color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
@@ -48,12 +48,12 @@ ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
 <body>
 <header><div class="wrap">
   <h1>椙山改修 アシスタント組織図</h1>
-  <p>2026/10/31 設置　統括アシスタント（社長）と担当3人</p>
+  <p>2026/10/31 設置　統括アシスタント（社長）と担当5人（リスト管理3・チェック2）</p>
 </div></header>
 <main class="wrap">
 
 <figure>
-<svg viewBox="0 0 960 580" role="img" aria-label="小山さんが社長に指示し、社長が図面・計画書リスト担当、課題リスト担当、増額リスト担当の3人に振り分ける。担当はそれぞれのファイルを更新し、社長は3つを読んで毎朝報告する。">
+<svg viewBox="0 0 960 580" role="img" aria-label="小山さんが社長に指示し、社長が図面・計画書リスト担当、課題リスト担当、増額リスト担当の3人と、図面チェック担当・計画書チェック担当の2人に振り分ける。担当はそれぞれのファイルを更新し、社長は3つを読んで毎朝報告する。">
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -76,6 +76,22 @@ ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
     <text x="480" y="208" text-anchor="middle" font-size="12">3つのリストを読んで報告（自分では編集しない）</text>
     <text x="480" y="226" text-anchor="middle" font-size="11" opacity=".7">ブランチ claude/sugiyama-tokatsu</text>
 
+
+    <!-- チェック担当（社長の両脇） -->
+    <rect x="20" y="140" width="250" height="96" rx="10" fill="var(--panel)" stroke="var(--ck)" stroke-width="2.5"/>
+    <text x="145" y="166" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ck)">図面チェック担当（新設）</text>
+    <text x="145" y="188" text-anchor="middle" font-size="12">施工図・製作図の PDF を確認</text>
+    <text x="145" y="206" text-anchor="middle" font-size="12">→ 指摘のチェック結果.xlsx</text>
+    <text x="145" y="226" text-anchor="middle" font-size="11" opacity=".7">claude/zumen-check</text>
+    <rect x="690" y="140" width="250" height="96" rx="10" fill="var(--panel)" stroke="var(--ck)" stroke-width="2.5"/>
+    <text x="815" y="166" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ck)">計画書チェック担当（新設）</text>
+    <text x="815" y="188" text-anchor="middle" font-size="12">施工計画書・要領書の PDF を確認</text>
+    <text x="815" y="206" text-anchor="middle" font-size="12">→ 指摘のチェック結果.xlsx</text>
+    <text x="815" y="226" text-anchor="middle" font-size="11" opacity=".7">claude/keikaku-check</text>
+    <line x1="328" y1="188" x2="274" y2="188" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="632" y1="188" x2="686" y2="188" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="300" y="180" text-anchor="middle" font-size="11">依頼</text>
+    <text x="660" y="180" text-anchor="middle" font-size="11">依頼</text>
     <!-- 社長が読む（点線） -->
     <path d="M480,520 L480,248" fill="none" stroke="var(--boss)" stroke-width="1.5" stroke-dasharray="5 4"/>
     <path d="M155,520 L805,520" fill="none" stroke="var(--boss)" stroke-width="1.5" stroke-dasharray="5 4"/>
@@ -125,7 +141,7 @@ ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
     <text x="800" y="488" text-anchor="middle" font-size="12" font-weight="700">YYMMDD_…増額リスト.xlsx</text>
   </g>
 </svg>
-<figcaption>小山さんは社長にだけ話しかければよい。社長が内容で振り分け、担当がファイルを更新し、社長が3つを読んで報告する。課題に概算金額が付いたら増額リストにも載る。点線は読み取りだけで、編集はしない。</figcaption>
+<figcaption>小山さんは社長にだけ話しかければよい。社長が内容で振り分け、担当がファイルを更新し、社長が3つを読んで報告する。課題に概算金額が付いたら増額リストにも載る。社長の両脇のチェック担当は PDF の中身を確認して指摘をまとめ、リストは編集しない。点線は読み取りだけで、編集はしない。</figcaption>
 </figure>
 
 <section>
@@ -136,6 +152,8 @@ ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
       <tr><td>社長</td><td>椙山改修統括アシスタント</td><td>振り分け、push の順番管理、毎朝 5:47 の報告（緊急項目→全体）、担当の質問の中継</td><td>小山さんのチャット、両担当のファイル</td></tr>
       <tr><td>図面担当</td><td>椙山改修：図面・計画書リスト</td><td>提出日・返却日・受図日・施工予定日・備考の入力、条件付き書式・備考の赤字の管理</td><td>eYACHO（03_現場・04_設計）、Box「NS確認」、金子さん・工藤さんのメール</td></tr>
       <tr><td>増額担当</td><td>椙山改修：増額リスト</td><td>増額項目・見積提出日・金額（税抜）・SJ 承認日・状態の管理、合計の集計</td><td>課題リストの概算金額・指示書番号、見積書、小山さんの指示</td></tr>
+      <tr><td>図面チェック担当</td><td>椙山改修：図面チェック</td><td>施工図・製作図の中身の確認（設計図との整合・寸法・納まり・前回指摘の反映）。指摘を「チェック結果.xlsx」にまとめる。構造確認が要るものは平山さん宛ての印</td><td>小山さんがアップロードした図面 PDF、設計図・特記仕様書</td></tr>
+      <tr><td>計画書チェック担当</td><td>椙山改修：計画書チェック</td><td>施工計画書・要領書の中身の確認（工期・工程表との整合、学生健診・卒業式への配慮、材料・手順・品質・安全・体制）。指摘を「チェック結果.xlsx」にまとめる</td><td>小山さんがアップロードした計画書 PDF、工程表、特記仕様書</td></tr>
       <tr><td>課題担当</td><td>椙山改修：課題リスト</td><td>課題の追加・経過の追記（赤字）、完了日とグレー塗り、外構の水色、定例後の黒字化</td><td>議事録（打合せ記録）、小山さんの指示</td></tr>
     </tbody>
   </table></div>
@@ -146,7 +164,8 @@ ul{margin:0;padding-left:1.3em;display:grid;gap:6px}
   <ul>
     <li>担当どうしが同時に push しないよう、社長が片方の完了を確かめてから次を頼む。</li>
     <li>担当は社長に直接返事ができない。社長が担当の様子を見に行き、質問があれば小山さんに中継する。</li>
-    <li>担当が社長経由の依頼を確認なしで進められるようにするには、小山さんが各担当のセッションで一度直接伝える（課題担当・図面担当は未設定。増額担当は作成時の依頼で push の許可不要と伝え済み）。</li>
+    <li>担当が社長経由の依頼を確認なしで進められるようにするには、小山さんが各担当のセッションで一度直接伝える（課題担当・図面担当は未設定。増額担当・チェック担当2人は作成時の依頼で push の許可不要と伝え済み）。</li>
+    <li>チェックの指摘で図面・計画書が再提出になるときは、社長が図面担当にも知らせる。</li>
     <li>備考に「発注済み」とある製作図は、期日を過ぎていても緊急項目に入れない。</li>
   </ul>
 </section>
