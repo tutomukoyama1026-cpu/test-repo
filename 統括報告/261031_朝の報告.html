@@ -61,6 +61,13 @@ td.no{white-space:nowrap;color:var(--muted)}
 .note{font-size:13px;color:var(--muted)}
 ol.todo{margin:0;padding-left:1.4em;display:grid;gap:8px}
 ol.todo li strong{color:var(--crit)}
+.urgent{border:2px solid var(--crit);background:var(--panel)}
+.urgent h2{color:var(--crit)}
+.urgent ol{margin:8px 0 0;padding-left:1.4em;display:grid;gap:12px}
+.urgent li b{display:block}
+.urgent .why,.urgent .act{display:block}
+.urgent .why{font-size:13px;color:var(--muted)}
+.urgent .act{font-size:14px}
 footer{font-size:12px;color:var(--muted);text-align:center;padding-bottom:24px}
 </style>
 </head>
@@ -70,6 +77,28 @@ footer{font-size:12px;color:var(--muted);text-align:center;padding-bottom:24px}
   <p>2026/10/31（土）時点　統括アシスタント</p>
 </div></header>
 <main class="wrap">
+
+<section class="urgent">
+  <h2>緊急で対応すべき項目</h2>
+  <p class="src">今日は土曜。11/2（月）が期日のものは、実質あと1稼働日しかありません。</p>
+  <ol>
+    <li><b>三和-6 ガラリ（東側デッキ）の受図　16日超過</b>
+      <span class="why">期日を最も長く過ぎています。受図が遅れると、決定予定日（11/19）も守れなくなります。</span>
+      <span class="act">→ 三和シャッターに作図の状況と受図日を確認</span></li>
+    <li><b>受領図の返却待ち 3件　11〜16日超過</b>
+      <span class="why">三友-15 西側 壁アルミルーバー（10/15）、タジマ-1 ステンレス製建具（10/19）、MIDIC-10 吸音ルーバー（10/20）。いずれも決定予定日を過ぎていて、発注が遅れます。</span>
+      <span class="act">→ 監理者（NS 工藤さん）に返却を催促</span></li>
+    <li><b>11/2（月）期日の5件　あと1稼働日</b>
+      <span class="why">仕上-4 解体範囲図の受領図提出／計-1 総合施工計画書の承認／計-7 金属工事施工計画書の現場提出／三友-16・MIDIC-3 西側ステンレスカウンターの受図。</span>
+      <span class="act">→ 月曜の朝に段取りを確認（計-1 は監理者へ承認の見込みを確認）</span></li>
+    <li><b>受図の遅れ 3件　1〜2日超過</b>
+      <span class="why">仕上-3 食堂展開図（10/29）、三友-8 吹抜け部天井下地鉄骨（10/30）、三友-10 吸音ルーバー壁天端塞ぎ（10/30）。</span>
+      <span class="act">→ PDS・三友建材に受図日を確認</span></li>
+    <li><b>課題 No.6 アスベスト事前調査　期限 10/16 超過</b>
+      <span class="why">10/28 に SJ から社内決裁完了の連絡があり、実質は片付いている可能性があります。</span>
+      <span class="act">→ 完了にしてよいかご判断ください（完了なら課題担当に反映させます）</span></li>
+  </ol>
+</section>
 
 <div class="tiles">
   <div class="tile crit"><b>10</b><span>図面・計画書 期日超過</span></div>
