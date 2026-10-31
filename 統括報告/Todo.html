@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>椙山改修 Todo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 朝の報告と同じ紺。期日の近い順に、チェックで消し込む */
+  --bg:#f4f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878; --line:#d9dee6;
+  --accent:#1f3a5f; --accent-ink:#ffffff;
+  --crit:#c62828; --crit-bg:#fdecec; --warn:#b26a00; --warn-bg:#fff4e0; --info:#1f5fa8; --info-bg:#e8f0fb;
+  --display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644; --accent:#2c4f7c;
+    --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --info:#8fb4e6; --info-bg:#18283c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644; --accent:#2c4f7c;
+  --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --info:#8fb4e6; --info-bg:#18283c; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+header{background:var(--accent);color:var(--accent-ink);padding:20px 16px 18px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-family:var(--display);font-weight:900;font-size:24px;margin:0}
+header p{margin:2px 0 0;font-size:13px;opacity:.85}
+main{padding:18px 16px 40px;display:grid;gap:20px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.count{font-size:14px;color:var(--muted)}
+.count b{font-family:var(--display);font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
+button{font:inherit;font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+h2{font-family:var(--display);font-size:18px;margin:0 0 4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sub{font-size:12px;color:var(--muted);margin:0 0 8px}
+ul{list-style:none;margin:0;padding:0}
+li{display:grid;grid-template-columns:22px 92px 1fr;gap:8px;align-items:start;padding:9px 0;border-top:1px solid var(--line)}
+li:first-child{border-top:none}
+li input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}
+.due{font-size:12px;font-weight:700;white-space:nowrap;padding:2px 6px;border-radius:4px;text-align:center;font-variant-numeric:tabular-nums}
+.due.c{background:var(--crit-bg);color:var(--crit)} .due.w{background:var(--warn-bg);color:var(--warn)} .due.i{background:var(--info-bg);color:var(--info)}
+.t{font-weight:700}
+.d{display:block;font-size:13px;color:var(--muted)}
+li.done .t,li.done .d{text-decoration:line-through;opacity:.55}
+.pill{font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px}
+.pill.c{background:var(--crit-bg);color:var(--crit)} .pill.w{background:var(--warn-bg);color:var(--warn)} .pill.i{background:var(--info-bg);color:var(--info)}
+@media (max-width:480px){ li{grid-template-columns:22px 1fr} li .due{grid-column:2;justify-self:start} li .body{grid-column:2} }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>椙山改修 Todo</h1>
+  <p>2026/10/31（土）夜 時点　小山さんがやること　統括アシスタント</p>
+</div></header>
+<main class="wrap">
+  <div class="bar">
+    <div class="count">残り <b id="left">0</b> 件 ／ 全 <span id="all">0</span> 件</div>
+    <button id="reset" type="button">チェックを全部外す</button>
+  </div>
+
+  <section>
+    <h2><span class="pill c">期日超過・遅れ</span>すぐ手配</h2>
+    <p class="sub">図面・計画書リスト 261031-25 版より</p>
+    <ul>
+      <li><input type="checkbox" id="t01"><span class="due c">10/28 超過</span><span class="body"><span class="t">計-14 LGS（ミルックス）計画書の作成を依頼</span><span class="d">推進G受領予定 10/28 が過ぎている。現場提出 11/4（水）、監理者承認 12/2、施工 12/16</span></span></li>
+      <li><input type="checkbox" id="t02"><span class="due c">16日遅れ</span><span class="body"><span class="t">三和-6 ガラリ（東側デッキ）の受図状況を三和シャッターに確認</span></span></li>
+      <li><input type="checkbox" id="t03"><span class="due c">1〜2日遅れ</span><span class="body"><span class="t">受図の遅れを確認：仕上-3 食堂展開図（PDS）、三友-8・三友-10（三友建材）</span></span></li>
+      <li><input type="checkbox" id="t04"><span class="due c">返却待ち</span><span class="body"><span class="t">監理者に返却を確認：仕上-1・仕上-2・三和-5</span><span class="d">三友-15・タジマ-1・MIDIC-10 は発注済みなので急がない</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="pill w">来週</span>期日の近い手配</h2>
+    <ul>
+      <li><input type="checkbox" id="t05"><span class="due w">11/2（月）</span><span class="body"><span class="t">仕上-4 解体範囲図 受領図を監理者へ提出</span></span></li>
+      <li><input type="checkbox" id="t06"><span class="due w">11/2（月）</span><span class="body"><span class="t">計-1 総合施工計画書の承認</span><span class="d">チェックの指摘 41件（要修正25）がある。下の「書類」も参照</span></span></li>
+      <li><input type="checkbox" id="t07"><span class="due w">11/2（月）</span><span class="body"><span class="t">計-7 金属工事施工計画書 現場提出</span></span></li>
+      <li><input type="checkbox" id="t08"><span class="due w">11/2（月）</span><span class="body"><span class="t">計-12 左官工事施工計画書（浪花組）推進G受領</span><span class="d">施工が 12/22 に早まったため</span></span></li>
+      <li><input type="checkbox" id="t09"><span class="due w">11/2（月）</span><span class="body"><span class="t">三友-16・MIDIC-3 西側ステンレスカウンター 受図</span></span></li>
+      <li><input type="checkbox" id="t10"><span class="due w">11/2（月）</span><span class="body"><span class="t">先行足場の組立（作業員用昇降足場・東面SSD前・地下駐車場吹抜部落下防止）</span><span class="d">11/4〜6 仮設ハウス・トイレ設置、11/9 着工</span></span></li>
+      <li><input type="checkbox" id="t11"><span class="due w">11/4（水）</span><span class="body"><span class="t">計-14 LGS 現場提出</span></span></li>
+      <li><input type="checkbox" id="t12"><span class="due w">11/5（木）</span><span class="body"><span class="t">中部-1 鋼製床 打合図を監理者へ提出</span><span class="d">施工 1/25 に早まった。決定予定 11/26（製作2か月）</span></span></li>
+      <li><input type="checkbox" id="t13"><span class="due w">11/6（金）</span><span class="body"><span class="t">定例：課題 No.9 床目地色「濃灰」・No.18 フィルム色「ミルキーホワイト」を確認</span></span></li>
+      <li><input type="checkbox" id="t14"><span class="due w">11/6（金）</span><span class="body"><span class="t">定例：オペレーター改修 2案（480,000／520,000）のどちらにするか</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="pill i">決めること</span>工程表（竣工 3/26）</h2>
+    <p class="sub">レポート「工程表 修正提案（竣工3/26）」参照</p>
+    <ul>
+      <li><input type="checkbox" id="t15"><span class="due i">早めに</span><span class="body"><span class="t">工程表を直すか（竣工引渡 3/31 → 3/26）</span><span class="d">直さない場合でも、是正・クリーニング 3/18〜24 が学生健診 3/23〜26 と重なる</span></span></li>
+      <li><input type="checkbox" id="t16"><span class="due i">早めに</span><span class="body"><span class="t">案A（施主検査 3/17）か 案A′（3/18）か、日建の担当者検査 3/16 を早めるか</span></span></li>
+      <li><input type="checkbox" id="t17"><span class="due i">早めに</span><span class="body"><span class="t">3/26 の引渡しを書類だけで行ってよいか、学園に施主検査日の変更を相談するか</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="pill i">書類</span>返す・直す</h2>
+    <ul>
+      <li><input type="checkbox" id="t18"><span class="due i">計-1 承認前</span><span class="body"><span class="t">総合施工計画書の指摘 41件を作成者に返す</span><span class="d">主な要修正：工期（p4・p12）、別工事のリスト混入（p17・19・21）、工程表の差替え（竣工・健診）、工事名2本併記、外構3エリアの内容、施工条件・品質管理・安全衛生組織・環境保全の章、組織表に検査責任者、関連工事の調整。コメント表が要れば統括アシスタントが作る</span></span></li>
+      <li><input type="checkbox" id="t19"><span class="due i">次の計画書まで</span><span class="body"><span class="t">施工計画書の雛形を直す</span><span class="d">2-3「新池 誠【検査責任者】」→「新地 誠 担当工事長」、検査責任者は金子。適用図書の改修標仕・標仕は令和7年版、日建要領は 26</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="pill i">資料</span>担当に渡すもの</h2>
+    <ul>
+      <li><input type="checkbox" id="t20"><span class="due i">届きしだい</span><span class="body"><span class="t">チェックしたい施工図・製作図の PDF をアップロード</span><span class="d">図面チェックの準備（設計図・既存竣工図・索引・チェック項目54）は済み</span></span></li>
+      <li><input type="checkbox" id="t21"><span class="due i">任意</span><span class="body"><span class="t">学内の作業ルール（作業時間・搬入経路・火気の届出など）</span></span></li>
+      <li><input type="checkbox" id="t22"><span class="due i">3/19 まで</span><span class="body"><span class="t">報-2 室内空気の化学物質濃度測定の予定日を決める</span><span class="d">引渡し前。現場作業の最終日が 3/19</span></span></li>
+    </ul>
+  </section>
+</main>
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('li input[type=checkbox]'));
+  var KEY='sugiyama-todo-261031';
+  var saved={}; try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  function render(){
+    var left=0;
+    boxes.forEach(function(b){ b.closest('li').classList.toggle('done',b.checked); if(!b.checked)left++; });
+    document.getElementById('left').textContent=left;
+    document.getElementById('all').textContent=boxes.length;
+  }
+  boxes.forEach(function(b){
+    b.checked=!!saved[b.id];
+    b.addEventListener('change',function(){ saved[b.id]=b.checked; try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){} render(); });
+  });
+  document.getElementById('reset').addEventListener('click',function(){ boxes.forEach(function(b){b.checked=false;}); saved={}; try{localStorage.removeItem(KEY)}catch(e){} render(); });
+  render();
+})();
+</script>
+</body>
+</html>
