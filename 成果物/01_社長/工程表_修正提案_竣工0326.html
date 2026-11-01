@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工程表 修正提案（竣工3/26）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 朝の報告と同じ紺の帯。現状→案→直す箇所→決めること の順 */
+  --bg:#f4f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878; --line:#d9dee6;
+  --accent:#1f3a5f; --accent-ink:#ffffff;
+  --crit:#c62828; --crit-bg:#fdecec; --warn:#b26a00; --warn-bg:#fff4e0; --ok:#2e7d32; --ok-bg:#e8f5e9; --off:#8a94a3; --off-bg:#eef1f4;
+  --display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644; --accent:#2c4f7c;
+    --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --ok:#7fd38a; --ok-bg:#16301b; --off:#7d8796; --off-bg:#222a35;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --panel:#19212b; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2c3644; --accent:#2c4f7c;
+  --crit:#ff7a7a; --crit-bg:#3a1d20; --warn:#ffb74d; --warn-bg:#36290f; --ok:#7fd38a; --ok-bg:#16301b; --off:#7d8796; --off-bg:#222a35;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65}
+header{background:var(--accent);color:var(--accent-ink);padding:20px 16px 18px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-family:var(--display);font-weight:900;font-size:24px;margin:0;text-wrap:balance}
+header p{margin:2px 0 0;font-size:13px;opacity:.85}
+main{padding:20px 16px 40px;display:grid;gap:22px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+h2{font-family:var(--display);font-size:19px;margin:0 0 8px;text-wrap:balance}
+p.lead{margin:0 0 8px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
+td.d{white-space:nowrap;font-weight:700}
+.cell{display:inline-block;padding:2px 8px;border-radius:4px;font-size:13px;font-weight:700}
+.ng{background:var(--crit-bg);color:var(--crit)}
+.chg{background:var(--warn-bg);color:var(--warn)}
+.okc{background:var(--ok-bg);color:var(--ok)}
+.offc{background:var(--off-bg);color:var(--off)}
+code{font-size:12px;background:var(--bg);padding:1px 5px;border-radius:3px}
+ol,ul{margin:0;padding-left:1.4em;display:grid;gap:6px}
+.note{font-size:13px;color:var(--muted)}
+/* 3月カレンダー帯 */
+.cal{display:grid;grid-template-columns:repeat(20,minmax(34px,1fr));gap:2px;min-width:720px}
+.cal div{font-size:11px;text-align:center;padding:4px 0;border-radius:3px;background:var(--off-bg);color:var(--muted)}
+.cal .h{background:transparent;font-weight:700;color:var(--ink)}
+.cal .w{background:var(--panel);border:1px solid var(--line);color:var(--ink)}
+.cal .hol{background:var(--off-bg);color:var(--off)}
+.cal .ken{background:var(--crit-bg);color:var(--crit);font-weight:700}
+.cal .ins{background:var(--warn-bg);color:var(--warn);font-weight:700}
+.cal .fix{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.l1::before{background:var(--warn-bg);border:1px solid var(--warn)}
+.l2::before{background:var(--ok-bg);border:1px solid var(--ok)}
+.l3::before{background:var(--crit-bg);border:1px solid var(--crit)}
+.l4::before{background:var(--off-bg)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>工程表 修正提案（竣工 3/26 対応）</h1>
+  <p>2026/10/31　統括アシスタント　対象：工程表.xlsx（claude/koutei の最新）</p>
+</div></header>
+<main class="wrap">
+
+<section>
+  <h2>なぜ直すのか</h2>
+  <p class="lead">10/31 に工期が <b>2026/11/9 着工・2027/3/26 竣工</b>と確定しました。今の工程表は「竣工引渡 3/31」のままで、最後の週の是正・クリーニングが学生健診（3/23〜26、B1F 侵入不可）と重なっています。</p>
+  <ul>
+    <li>3/20（土）〜22（月・祝）は休み、3/23〜26 は健診で現場に入れない。<b>現場作業の最終日は 3/19（金）</b>。</li>
+    <li>工程表とリストの日付リンク（38項目）は、一番遅いものが 2/24 なので影響なし。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3月後半の比べ</h2>
+  <div class="scroll">
+  <div class="cal" aria-label="3月12日から31日の稼働日と予定">
+    <div class="h">12金</div><div class="h">13土</div><div class="h">14日</div><div class="h">15月</div><div class="h">16火</div><div class="h">17水</div><div class="h">18木</div><div class="h">19金</div><div class="h">20土</div><div class="h">21日</div><div class="h">22祝</div><div class="h">23火</div><div class="h">24水</div><div class="h">25木</div><div class="h">26金</div><div class="h">27土</div><div class="h">28日</div><div class="h">29月</div><div class="h">30火</div><div class="h">31水</div>
+    <!-- 今 -->
+    <div class="ins">SC検査</div><div class="hol">休</div><div class="hol">休</div><div class="w">卒業式</div><div class="ins">日建</div><div class="w"></div><div class="fix">是正</div><div class="ins">施主</div><div class="hol">休</div><div class="hol">休</div><div class="hol">休</div><div class="ken">是正✕</div><div class="ken">是正✕</div><div class="ken">健診</div><div class="ken">健診</div><div class="hol">休</div><div class="hol">休</div><div class="w"></div><div class="w"></div><div class="ins">引渡</div>
+    <!-- 案A -->
+    <div class="ins">SC検査</div><div class="hol">休</div><div class="hol">休</div><div class="w">卒業式</div><div class="ins">日建</div><div class="ins">施主</div><div class="fix">是正</div><div class="fix">是正</div><div class="hol">休</div><div class="hol">休</div><div class="hol">休</div><div class="ken">健診</div><div class="ken">健診</div><div class="ken">健診</div><div class="ins">引渡</div><div class="hol">休</div><div class="hol">休</div><div class="off"></div><div class="off"></div><div class="off"></div>
+    <!-- 案A' -->
+    <div class="ins">SC検査</div><div class="hol">休</div><div class="hol">休</div><div class="w">卒業式</div><div class="ins">日建</div><div class="fix">是正</div><div class="ins">施主</div><div class="fix">是正</div><div class="hol">休</div><div class="hol">休</div><div class="hol">休</div><div class="ken">健診</div><div class="ken">健診</div><div class="ken">健診</div><div class="ins">引渡</div><div class="hol">休</div><div class="hol">休</div><div class="off"></div><div class="off"></div><div class="off"></div>
+  </div>
+  </div>
+  <p class="note">上から「今の工程表」「案A」「案A′（施主検査は 3/18）」。是正✕＝健診と重なり実際には作業できない日。</p>
+  <div class="legend"><span class="l1">検査・引渡</span><span class="l2">是正・最終クリーニング</span><span class="l3">学生健診（B1F 侵入不可）</span><span class="l4">休み・工期外</span></div>
+
+  <div class="scroll" style="margin-top:14px"><table>
+    <thead><tr><th>項目</th><th>今の工程表</th><th>案A（おすすめ）</th><th>案A′</th></tr></thead>
+    <tbody>
+      <tr><td>SC 竣工検査</td><td class="d">3/12</td><td>同じ</td><td>同じ</td></tr>
+      <tr><td>日建設計 担当者検査</td><td class="d">3/16</td><td>同じ</td><td>同じ</td></tr>
+      <tr><td>施主検査</td><td class="d">3/19</td><td><span class="cell chg">3/17（水）</span></td><td><span class="cell chg">3/18（木）</span></td></tr>
+      <tr><td>検査是正・最終クリーニング</td><td class="d"><span class="cell ng">3/18〜3/24</span></td><td><span class="cell chg">3/17〜3/19</span></td><td><span class="cell chg">3/17〜3/19</span></td></tr>
+      <tr><td>竣工引渡</td><td class="d"><span class="cell ng">3/31</span></td><td><span class="cell chg">3/26（書類）</span></td><td><span class="cell chg">3/26（書類）</span></td></tr>
+      <tr><td>担当者検査の指摘を直す日</td><td>3/17〜18</td><td><span class="cell ng">なし（翌日が施主検査）</span></td><td><span class="cell okc">3/17 の1日</span></td></tr>
+      <tr><td>施主検査の指摘を直す日</td><td><span class="cell ng">3/23〜24（健診と重なる）</span></td><td><span class="cell okc">3/18・19 の2日</span></td><td>3/19 の1日</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">どちらの案も、担当者検査から施主検査までの間が短くなります。余裕を取るなら、日建設計 担当者検査を 3/11（木）ごろに早める手もあります（3/12 の SC 竣工検査より前になるので、検査の順番の確認が要ります）。</p>
+</section>
+
+<section>
+  <h2>工程表で直すところ（案A の場合）</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>#</th><th>場所</th><th>今</th><th>直した後</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>6行目の文字「竣工引渡」</td><td><code>FP6</code>（3/31）</td><td><code>FK6</code>（3/26）に移す。「（書類）」を添えるかは要相談</td></tr>
+      <tr><td>2</td><td>6行目の文字「施主検査」</td><td><code>FD6</code>（3/19）</td><td><code>FB6</code>（3/17）に移す</td></tr>
+      <tr><td>3</td><td>図形「検査是正・最終クリーニング」</td><td>3/18〜3/24</td><td>3/17〜3/19 に縮める</td></tr>
+      <tr><td>4</td><td>3/27〜3/31 の列</td><td>工期内の扱い</td><td>工期外として表示（色・注記）するか、そのままにするかは要相談</td></tr>
+      <tr><td>5</td><td>工程表.pdf</td><td>3/31 竣工の版</td><td>作り直す（131行目まで、2ページ）</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">SC 竣工検査（<code>EW6</code>、3/12）、日建設計 担当者検査（<code>FA6</code>、3/16）、自主検査・試運転（3/4〜10）、卒業式・健診の図形は動かしません。</p>
+</section>
+
+<section>
+  <h2>あわせて直すもの</h2>
+  <ul>
+    <li><b>③ 報-2 室内空気の化学物質濃度測定</b>（備考「引渡し前」）：3/19 までに行う予定にする（図面担当に予定日の入力を頼む）。</li>
+    <li><b>計-1 総合施工計画書 p16 の総合工程表</b>：竣工引渡 3/31 → 3/26、検査日程の見直し（計画書チェックで要修正として指摘済み）。</li>
+    <li>CLAUDE.md・リスト①C3 の工期は 3/26 に直し済み。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>決めていただきたいこと</h2>
+  <ol>
+    <li><b>案A と案A′ のどちらにするか</b>（施主検査を 3/17 にするか 3/18 にするか）。</li>
+    <li><b>3/26 の引渡しを書類だけで行ってよいか</b>（健診の期間中で現場に入れない）。</li>
+    <li><b>日建設計 担当者検査（3/16）を早めるか</b>。</li>
+    <li><b>施主検査の日程変更を学園に相談するか</b>（工程表は「予定」として先に直してよいか）。</li>
+  </ol>
+  <p class="note">決まれば、工程管理担当が工程表と PDF を直します（15〜20分ほど）。</p>
+</section>
+</main>
+</body>
+</html>
