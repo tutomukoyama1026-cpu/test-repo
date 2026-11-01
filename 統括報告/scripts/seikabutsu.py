@@ -23,8 +23,11 @@ def files(branch):
     out = subprocess.check_output(['git', '-c', 'core.quotepath=false', 'ls-tree', '-r', '--name-only', 'origin/' + branch], cwd=ROOT, text=True)
     return out.splitlines()
 
-if os.path.isdir(OUT):
-    shutil.rmtree(OUT)
+# はじめに読む.md は残し、担当フォルダだけ作り直す
+os.makedirs(OUT, exist_ok=True)
+for n in os.listdir(OUT):
+    if n[:2].isdigit() and os.path.isdir(os.path.join(OUT, n)):
+        shutil.rmtree(os.path.join(OUT, n))
 cache = {}
 for folder, branch, pats in PLAN:
     d = os.path.join(OUT, folder); os.makedirs(d, exist_ok=True)
