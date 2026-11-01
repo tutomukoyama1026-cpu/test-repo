@@ -219,7 +219,7 @@
 - 工期 2026/11/9〜2027/3/26（10/31 ユーザー確認）。学校行事（入試・試験・卒業式 3/15・学生健診）と現場行事は工程表の図形にある。学生健診は 3/23〜26（10/31 ユーザー確認。工程表の図形も 3/23-26 に修正済み）。
 
 ## 統括アシスタント（社長）— 2026/10/31 設置（A案）
-- セッション「椙山改修統括アシスタント」（session_01NuNLLxkLgVuC8PRPe24JWe）が7つの担当セッションに仕事を振り分け、結果を確認してユーザーに報告する。
+- セッション「椙山改修：社長」（session_01NuNLLxkLgVuC8PRPe24JWe、旧名 椙山改修統括アシスタント）が7つの担当セッションに仕事を振り分け、結果を確認してユーザーに報告する。
   - 図面・計画書リスト担当：「椙山改修：図面・計画書リスト」session_01NF49ffD5V2ts4i4NuV3RmR（作業ブランチ `claude/confident-bohr-tpkdbt`）
   - 課題リスト担当：「椙山改修：課題リスト」session_01ArJWUdRrK4Pb58aBC6s5hp（作業ブランチ `claude/adoring-brahmagupta-1rck9y`）
   - 増額リスト担当：「椙山改修：増額リスト」session_01NuNLLvajBDeC2dFnYHmyoV（作業ブランチ `claude/zougaku-list`）
