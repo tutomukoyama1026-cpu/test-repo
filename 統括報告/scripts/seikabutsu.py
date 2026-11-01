@@ -8,7 +8,7 @@ ROOT = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=Tru
 OUT = os.path.join(ROOT, '成果物')
 # (フォルダ, ブランチ, パターンのリスト)
 PLAN = [
-    ('01_社長', 'claude/sugiyama-tokatsu', ['統括報告/組織図.html', '統括報告/Todo.html', '統括報告/工程表_修正提案_*.html', '統括報告/*_朝の報告.html@latest']),
+    ('01_社長', 'claude/sugiyama-tokatsu', ['統括報告/組織図.html', '統括報告/工程表_修正提案_*.html', '統括報告/*_朝の報告.html@latest']),
     ('02_図面計画書リスト', 'claude/confident-bohr-tpkdbt', ['椙山改修/*_図面・計画書リスト.xlsx']),
     ('03_課題リスト', 'claude/adoring-brahmagupta-1rck9y', ['椙山改修/*課題リスト*.xlsx', '椙山改修/作業報告.md']),
     ('04_増減リスト', 'claude/zougaku-list', ['椙山改修/*_増減リスト.xlsx']),
