@@ -1,0 +1,231 @@
+<title>窓際カウンター支柱の比較</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=BIZ+UDGothic:wght@700&display=swap">
+<style>
+/* 施工図の断面スケッチ：鋼材＝濃い青、木の天板＝木色、力＝赤い矢印、NG/OK は札で */
+:root{
+  --bg:#f5f6f4; --panel:#ffffff; --ink:#1d2328; --muted:#5f6a72; --line:#cfd6d9;
+  --steel:#2f5d86; --wood:#c69a62; --wall:#9aa3a8; --force:#c8372d; --ok:#2e7d4f; --ok-bg:#e4f3ea; --ng:#c8372d; --ng-bg:#fbe7e5; --warn:#a96a00; --warn-bg:#fdf0d8;
+  --body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",sans-serif;
+  --display:"BIZ UDGothic","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13181c; --panel:#1b2228; --ink:#e6ebee; --muted:#9aa6ad; --line:#2f3a42;
+  --steel:#7fb2df; --wood:#d8b07c; --wall:#6d777d; --force:#ff7b6e; --ok:#6fd39a; --ok-bg:#163326; --ng:#ff7b6e; --ng-bg:#3a1d1a; --warn:#f2b55a; --warn-bg:#382a10; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13181c; --panel:#1b2228; --ink:#e6ebee; --muted:#9aa6ad; --line:#2f3a42;
+  --steel:#7fb2df; --wood:#d8b07c; --wall:#6d777d; --force:#ff7b6e; --ok:#6fd39a; --ok-bg:#163326; --ng:#ff7b6e; --ng-bg:#3a1d1a; --warn:#f2b55a; --warn-bg:#382a10; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:960px;margin:0 auto;display:grid;gap:20px}
+h1{font-family:var(--display);font-size:22px;margin:0;text-wrap:balance}
+.lead{margin:4px 0 0;color:var(--muted);font-size:14px}
+h2{font-family:var(--display);font-size:17px;margin:0 0 8px;text-wrap:balance}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{display:grid;gap:6px;min-width:0}
+.card h3{font-size:15px;margin:0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:1px 9px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:var(--ok-bg);color:var(--ok)} .tag.ng{background:var(--ng-bg);color:var(--ng)} .tag.warn{background:var(--warn-bg);color:var(--warn)}
+.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.card p b{color:var(--ink)}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px;border-radius:2px;background:var(--c)}
+.note{font-size:13px;color:var(--muted);margin:0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted);font-weight:400;white-space:nowrap}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>窓際カウンター支柱の比較</h1>
+  <p class="lead">三友-12（打合図 11/2）。西側 H720、支柱 @1,300、天板 550、支柱から先端 240。横から 1.5kN/m 押したときの概算です。</p>
+</header>
+
+<section style="border:2px solid var(--ok)">
+  <h2>採用案：□-40×60×2.3（見付 40・見込 60）＋天板両端を柱型にアンカー<span class="tag ok" style="margin-left:8px">持つ</span></h2>
+  <p class="note">荷重の仮定：鉄直 先端 1kN（寄りかかり）、横（前後） 1.5kN/m、横（長手） 0.5kN/m。鋼材 STKR400（許容 長期 156・短期 235 N/mm²）、M12 ケミカルアンカー 短期引抗 約9kN（三友の腰壁検討書の値）。</p>
+  <div class="scroll"><table>
+    <thead><tr><th>確認するところ</th><th>案C（柱型にアンカー）</th><th>もし柱型が効かないとき（案A）</th></tr></thead>
+    <tbody>
+      <tr><td>支柱の曲げ（前後）</td><td>33 N/mm²（長期 156）<span class="tag ok">OK</span></td><td>193 N/mm²（短期 235）<span class="tag ok">OK</span></td></tr>
+      <tr><td>支柱のたわみ（天板の高さ）</td><td>ほぼ 0（天板が柱型で止まる）<span class="tag ok">OK</span></td><td>4.6mm<span class="tag ok">OK</span></td></tr>
+      <tr><td>支柱の曲げ（長手方向・見付 40）</td><td>天板が柱型で止まるので小さい<span class="tag ok">OK</span></td><td>81 N/mm²<span class="tag ok">OK</span></td></tr>
+      <tr><td>足元アンカー</td><td>今の FB-9×75・M12×2 で 1本 約3.2kN<span class="tag ok">OK</span></td><td>PL-9×150×150・M12×4（前後に2本ずつ）で 1本 約5.6kN<span class="tag ok">OK</span>　今の FB-9×75 のままは NG</td></tr>
+      <tr><td>柱型への取付け（各端）</td><td>約3.5kN（せん断）を L-65×65×6＋M10〜M12×2本<span class="tag ok">OK</span></td><td>—</td></tr>
+      <tr><td>天板（柱型〜柱型の横向きの梁）</td><td>約2 N/mm²、たわみ 約2mm<span class="tag ok">OK</span></td><td>—</td></tr>
+      <tr><td>天板（支柱間 1,300 の上下）</td><td colspan="2">中央に 1kN で約 2 N/mm²（下地 FB-12×25 なしでも）<span class="tag ok">OK</span></td></tr>
+    </tbody>
+  </table></div>
+  <ol style="margin:10px 0 0;padding-left:1.4em;display:grid;gap:6px;font-size:14px">
+    <li><b>支柱：</b>□-40×60×2.3（客席側 40、60 を前後に）。余裕がほしければ 3.2（案A でも 146）。</li>
+    <li><b>天板の両端：</b>柱型の側面に L-65×65×6 ＋ あと施工アンカー M10〜M12×2本。柱型の角から 60 以上離す。仕上げの厚みを確認。</li>
+    <li><b>天板：</b>柱型〜柱型を一体に（継ぐなら金物でつなぐ）。</li>
+    <li><b>足元：</b>柱型へのアンカーが間に合わない・不安なときに備え、PL-9×150×150・M12×4 にしておくと案A でも持つ（おすすめ）。</li>
+  </ol>
+</section>
+
+<section>
+  <h2>1. 支柱の向き（上から見た図）</h2>
+  <p class="note">人は窓に向かって座ります。天板を押す力は「前後」にかかるので、前後方向の厚み（見込み）が効きます。</p>
+  <div class="grid" style="margin-top:12px">
+    <div class="card">
+      <svg viewBox="0 0 260 200" role="img" aria-label="FB-12×65。前後方向に65あるので前後の力に強い">
+        <rect x="0" y="0" width="260" height="22" fill="var(--wall)" opacity=".45"/><text x="130" y="16" text-anchor="middle" font-size="12">窓側</text>
+        <rect x="124" y="60" width="12" height="65" fill="var(--steel)"/>
+        <line x1="150" y1="60" x2="150" y2="125" stroke="var(--muted)"/><text x="156" y="97" font-size="12">65</text>
+        <text x="130" y="145" text-anchor="middle" font-size="12">12</text>
+        <path d="M130 185 L130 140" stroke="var(--force)" stroke-width="3"/><path d="M122 150 L130 136 L138 150 Z" fill="var(--force)"/>
+        <text x="140" y="180" font-size="12" fill="var(--force)" style="fill:var(--force)">押す力</text>
+        <text x="130" y="197" text-anchor="middle" font-size="11" style="fill:var(--muted)">客席側</text>
+      </svg>
+      <h3>FB-12×65（今の図）<span class="tag ok">前後 OK</span></h3>
+      <p>前後は 65 あって強い。弱いのは横とねじれだが、天板でつながるので問題は小さい。</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 260 200" role="img" aria-label="見込み30の角パイプ。前後方向が30しかなく前後の力に弱い">
+        <rect x="0" y="0" width="260" height="22" fill="var(--wall)" opacity=".45"/><text x="130" y="16" text-anchor="middle" font-size="12">窓側</text>
+        <rect x="100" y="78" width="60" height="30" fill="none" stroke="var(--steel)" stroke-width="4"/>
+        <line x1="172" y1="78" x2="172" y2="108" stroke="var(--muted)"/><text x="178" y="98" font-size="12">30</text>
+        <text x="130" y="126" text-anchor="middle" font-size="12">60</text>
+        <path d="M130 185 L130 140" stroke="var(--force)" stroke-width="3"/><path d="M122 150 L130 136 L138 150 Z" fill="var(--force)"/>
+        <text x="140" y="180" font-size="12" style="fill:var(--force)">押す力</text>
+        <text x="130" y="197" text-anchor="middle" font-size="11" style="fill:var(--muted)">客席側</text>
+      </svg>
+      <h3>□-60×30（見込み30）<span class="tag ng">前後 NG</span></h3>
+      <p>前後が 30 しかなく、FB より曲がりやすい。支柱だけで立てると <b>応力 276〜355</b>（許容 235）。</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 260 200" role="img" aria-label="見付30・見込み60の角パイプ。前後方向60でぎりぎり持つ">
+        <rect x="0" y="0" width="260" height="22" fill="var(--wall)" opacity=".45"/><text x="130" y="16" text-anchor="middle" font-size="12">窓側</text>
+        <rect x="115" y="60" width="30" height="60" fill="none" stroke="var(--steel)" stroke-width="4"/>
+        <line x1="157" y1="60" x2="157" y2="120" stroke="var(--muted)"/><text x="163" y="95" font-size="12">60</text>
+        <text x="130" y="138" text-anchor="middle" font-size="12">30</text>
+        <path d="M130 185 L130 146" stroke="var(--force)" stroke-width="3"/><path d="M122 156 L130 142 L138 156 Z" fill="var(--force)"/>
+        <text x="140" y="180" font-size="12" style="fill:var(--force)">押す力</text>
+        <text x="130" y="197" text-anchor="middle" font-size="11" style="fill:var(--muted)">客席側</text>
+      </svg>
+      <h3>□-30×60（見付30・見込み60）<span class="tag warn">ぎりぎり</span></h3>
+      <p>客席から見た幅は 30 でスリム。支柱だけでも <b>応力 234</b>（許容 235）。肉厚 3.2 なら余裕。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. 支え方（横から見た断面）</h2>
+  <div class="legend" style="margin-bottom:8px"><span style="--c:var(--steel)">鋼材（支柱）</span><span style="--c:var(--wood)">天板</span><span style="--c:var(--force)">力・曲げ</span><span style="--c:var(--wall)">窓台・床</span></div>
+  <div class="grid">
+    <div class="card">
+      <svg viewBox="0 0 320 300" role="img" aria-label="案A 支柱だけで立てる。天板を押すと支柱の根元に曲げが集中し、足元アンカーに大きな引抜き">
+        <rect x="0" y="40" width="40" height="230" fill="var(--wall)" opacity=".55"/><text x="20" y="34" text-anchor="middle" font-size="11">窓台</text>
+        <rect x="0" y="270" width="320" height="20" fill="var(--wall)" opacity=".55"/><text x="300" y="285" text-anchor="end" font-size="11">床</text>
+        <rect x="44" y="70" width="250" height="16" fill="var(--wood)"/><text x="200" y="64" text-anchor="middle" font-size="12">天板 550</text>
+        <rect x="130" y="86" width="12" height="178" fill="var(--steel)"/>
+        <rect x="112" y="264" width="48" height="6" fill="var(--steel)"/>
+        <path d="M310 78 L296 78" stroke="var(--force)" stroke-width="3"/><path d="M300 70 L286 78 L300 86 Z" fill="var(--force)"/>
+        <text x="306" y="104" text-anchor="end" font-size="12" style="fill:var(--force)">押す</text>
+        <path d="M150 90 Q186 170 150 262" fill="none" stroke="var(--force)" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="190" y="190" font-size="12" style="fill:var(--force)">曲がる</text>
+        <path d="M118 286 L118 300" stroke="var(--force)" stroke-width="3"/><text x="94" y="250" text-anchor="end" font-size="12" style="fill:var(--force)">アンカーが</text><text x="94" y="265" text-anchor="end" font-size="12" style="fill:var(--force)">抜ける力</text>
+      </svg>
+      <h3>案A：支柱だけで立てる（今の図）<span class="tag ng">足元が弱い</span></h3>
+      <p>押した力を支柱1本と足元のアンカーだけで受ける。<b>アンカー1本 約19kN</b>（M12 の許容 約9kN）。見込み30の角パイプでは支柱も NG。</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 320 300" role="img" aria-label="案B 天板を窓台に固定。押す力は窓台へ流れ、支柱は重さだけを受ける">
+        <rect x="0" y="40" width="40" height="230" fill="var(--wall)" opacity=".55"/><text x="20" y="34" text-anchor="middle" font-size="11">窓台</text>
+        <rect x="0" y="270" width="320" height="20" fill="var(--wall)" opacity=".55"/><text x="300" y="285" text-anchor="end" font-size="11">床</text>
+        <rect x="44" y="70" width="250" height="16" fill="var(--wood)"/><text x="200" y="64" text-anchor="middle" font-size="12">天板 550</text>
+        <path d="M40 86 L64 86 L64 100" fill="none" stroke="var(--steel)" stroke-width="5"/>
+        <text x="70" y="114" font-size="12">L金物で窓台に固定</text>
+        <rect x="132" y="86" width="10" height="178" fill="none" stroke="var(--steel)" stroke-width="3"/>
+        <rect x="112" y="264" width="50" height="6" fill="var(--steel)"/>
+        <path d="M310 78 L296 78" stroke="var(--force)" stroke-width="3"/><path d="M300 70 L286 78 L300 86 Z" fill="var(--force)"/>
+        <path d="M280 94 L60 94" stroke="var(--force)" stroke-width="2" stroke-dasharray="6 4"/><path d="M68 88 L54 94 L68 100 Z" fill="var(--force)"/>
+        <text x="200" y="134" text-anchor="middle" font-size="12" style="fill:var(--force)">力は窓台へ</text>
+        <path d="M137 150 L137 230" stroke="var(--muted)" stroke-width="2"/><path d="M131 222 L137 236 L143 222 Z" fill="var(--muted)"/>
+        <text x="150" y="200" font-size="12" style="fill:var(--muted)">支柱は重さだけ</text>
+      </svg>
+      <h3>案B：天板を窓台に固定（参考図の「壁固定」）<span class="tag ng">サッシがアルミのため不可</span></h3>
+      <p>押す力は窓台側の金物へ流れる。支柱は重さだけなので <b>□-30×30×2.3 でも OK</b>（応力 110／許容 156）。足元アンカーも軽くなる。窓台側の金物・アンカーは別に検討。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. 案C：天板の両端を柱型にアンカー（11/3 小山さん指示）</h2>
+  <p class="note">裏のサッシはアルミで固定できないため、両脇の柱型（RC）に天板の端を固定する。天板が柱型から柱型へ「横向きの梁」になり、押す力を両端の柱型が受ける。</p>
+  <div class="grid" style="margin-top:12px">
+    <div class="card">
+      <svg viewBox="0 0 360 220" role="img" aria-label="上から見た図。天板は柱型から柱型まで4700、押す力は両端の柱型のアンカーへ流れる">
+        <rect x="0" y="20" width="360" height="14" fill="var(--wall)" opacity=".45"/><text x="180" y="31" text-anchor="middle" font-size="11">アルミサッシ（固定しない）</text>
+        <rect x="0" y="34" width="40" height="110" fill="var(--wall)" opacity=".7"/><rect x="320" y="34" width="40" height="110" fill="var(--wall)" opacity=".7"/>
+        <text x="20" y="160" text-anchor="middle" font-size="11">柱型</text><text x="340" y="160" text-anchor="middle" font-size="11">柱型</text>
+        <rect x="40" y="44" width="280" height="66" fill="var(--wood)"/><text x="180" y="82" text-anchor="middle" font-size="12">天板（奥行 550）</text>
+        <rect x="40" y="52" width="14" height="20" fill="var(--steel)"/><rect x="306" y="52" width="14" height="20" fill="var(--steel)"/>
+        <circle cx="33" cy="58" r="3" fill="var(--steel)"/><circle cx="33" cy="68" r="3" fill="var(--steel)"/><circle cx="327" cy="58" r="3" fill="var(--steel)"/><circle cx="327" cy="68" r="3" fill="var(--steel)"/>
+        <g stroke="var(--force)" stroke-width="2.5"><line x1="100" y1="140" x2="100" y2="116"/><line x1="180" y1="140" x2="180" y2="116"/><line x1="260" y1="140" x2="260" y2="116"/></g>
+        <g fill="var(--force)"><path d="M94 122 L100 110 L106 122 Z"/><path d="M174 122 L180 110 L186 122 Z"/><path d="M254 122 L260 110 L266 122 Z"/></g>
+        <text x="180" y="156" text-anchor="middle" font-size="12" style="fill:var(--force)">押す力 1.5kN/m</text>
+        <path d="M60 100 Q40 100 40 80" fill="none" stroke="var(--force)" stroke-width="2" stroke-dasharray="4 3"/><path d="M300 100 Q320 100 320 80" fill="none" stroke="var(--force)" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="20" y="182" font-size="11" style="fill:var(--force)">各端 約3.5kN</text><text x="340" y="182" text-anchor="end" font-size="11" style="fill:var(--force)">各端 約3.5kN</text>
+        <line x1="40" y1="200" x2="320" y2="200" stroke="var(--muted)"/><text x="180" y="214" text-anchor="middle" font-size="11">柱型の間 4,678〜4,705（⑦通りは 4,700）</text>
+        <g fill="none" stroke="var(--steel)" stroke-width="2"><rect x="110" y="84" width="10" height="10"/><rect x="175" y="84" width="10" height="10"/><rect x="240" y="84" width="10" height="10"/></g>
+      </svg>
+      <h3>上から見た図<span class="tag ok">持つ</span></h3>
+      <p>天板は奥行 550 あるので、横向きの梁としてはとても強い（<b>応力 約2 N/mm²、たわみ 約2mm</b>）。両端の柱型にかかる力は <b>各端 約3.5kN</b>（せん断）で、M10〜M12 のアンカー2本で十分受けられる。</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 320 300" role="img" aria-label="断面。天板の端は柱型に金物で固定、支柱は重さだけを受ける">
+        <rect x="0" y="40" width="30" height="230" fill="var(--wall)" opacity=".45"/><text x="16" y="34" text-anchor="middle" font-size="11">サッシ</text>
+        <rect x="0" y="270" width="320" height="20" fill="var(--wall)" opacity=".55"/><text x="300" y="285" text-anchor="end" font-size="11">床</text>
+        <rect x="44" y="70" width="250" height="16" fill="var(--wood)"/><text x="200" y="64" text-anchor="middle" font-size="12">天板</text>
+        <rect x="132" y="86" width="10" height="178" fill="none" stroke="var(--steel)" stroke-width="3"/><rect x="108" y="264" width="58" height="6" fill="var(--steel)"/>
+        <text x="150" y="170" font-size="12">□-30×30×2.3</text><text x="150" y="186" font-size="12" style="fill:var(--muted)">重さだけ受ける</text>
+        <text x="60" y="110" font-size="11" style="fill:var(--muted)">天板端の金物は</text><text x="60" y="124" font-size="11" style="fill:var(--muted)">奥の柱型へ（紙面の奥）</text>
+        <path d="M310 78 L296 78" stroke="var(--force)" stroke-width="3"/><path d="M300 70 L286 78 L300 86 Z" fill="var(--force)"/>
+        <text x="306" y="104" text-anchor="end" font-size="12" style="fill:var(--force)">押す</text>
+      </svg>
+      <h3>横から見た断面<span class="tag ok">支柱は細くできる</span></h3>
+      <p>天板の上の端が柱型で止まるので、支柱は重さだけを受ける。<b>見込み30の □-30×30×2.3 で OK</b>（先端 1kN で 110 N/mm²／長期許容 156）。足元のアンカーも 1本 約3kN まで下がる。</p>
+    </div>
+  </div>
+  <h3 style="margin-top:14px">案C の条件（三友に伝えること）</h3>
+  <ol style="margin:4px 0 0;padding-left:1.4em;display:grid;gap:6px;font-size:14px">
+    <li><b>天板を1スパン（柱型〜柱型）で一体にする。</b>継ぐ場合は、継ぎ目を金物（または天板下の通しの鋼材）でつないで、横向きの梁として切れないようにする。</li>
+    <li><b>両端の金物：</b>天板下に L-65×65×6 程度の受け金物を付け、柱型の側面に <b>あと施工アンカー M10〜M12 ×2本</b>。1か所 約3.5kN（短期）。柱型の角からのへりあき（目安 60 以上）と、既存の仕上げ（タイル・モルタル）の厚みを確認。</li>
+    <li><b>支柱：</b>見込み30の角パイプ（□-30×30×2.3、または見付を広げた □-60×30）でよい。足元のベースプレートは今の FB-9×75・M12×2本で可。</li>
+    <li><b>端の逃げ：</b>柱型の面は実測で通り芯から 387〜424（⑦通り 413〜425、P端 455）。天板の長さは実測で決め、金物の取付けしろを残す。</li>
+    <li>東側 H920（⑦通り）も同じ考え方。上げ床 +800 を貫く支柱は長いので、天板を柱型に固定すれば支柱の負担は小さい。</li>
+  </ol>
+</section>
+
+<section>
+  <h2>4. 数字のまとめ（見付＝客席側の幅 30・40・50）</h2>
+  <p class="note">案A＝支柱だけで立てる（横 1.5kN/m、短期許容 235）。案C＝天板の両端を柱型にアンカー（支柱は重さだけ。先端 1kN、長期許容 156）。</p>
+  <div class="scroll"><table>
+    <thead><tr><th>支柱（見付×見込×厚さ）</th><th>案A 曲げ応力</th><th>案A たわみ</th><th>案A</th><th>案C 曲げ応力</th><th>案C</th></tr></thead>
+    <tbody>
+      <tr><td>FB-12×65（今の図）</td><td>166</td><td>3.6mm</td><td><span class="tag ok">OK</span></td><td>28</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-30×30×2.3</td><td>642</td><td>30mm</td><td><span class="tag ng">NG</span></td><td>110</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-30×60×2.3</td><td>234</td><td>5.5mm</td><td><span class="tag warn">ぎりぎり</span></td><td>40</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-30×60×3.2</td><td>178</td><td>4.2mm</td><td><span class="tag ok">OK</span></td><td>30</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-30×75×2.3</td><td>167</td><td>3.2mm</td><td><span class="tag ok">OK</span></td><td>28</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-30×75×3.2</td><td>125</td><td>2.4mm</td><td><span class="tag ok">OK</span></td><td>21</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-40×60×2.3</td><td>193</td><td>4.6mm</td><td><span class="tag ok">OK</span></td><td>33</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-40×60×3.2</td><td>146</td><td>3.5mm</td><td><span class="tag ok">OK</span></td><td>25</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-40×75×2.3</td><td>140</td><td>2.6mm</td><td><span class="tag ok">OK</span></td><td>24</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-40×75×3.2</td><td>105</td><td>2.0mm</td><td><span class="tag ok">OK</span></td><td>18</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-50×60×2.3</td><td>164</td><td>3.9mm</td><td><span class="tag ok">OK</span></td><td>28</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-50×60×3.2</td><td>124</td><td>2.9mm</td><td><span class="tag ok">OK</span></td><td>21</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-50×75×2.3</td><td>120</td><td>2.3mm</td><td><span class="tag ok">OK</span></td><td>21</td><td><span class="tag ok">OK</span></td></tr>
+      <tr><td>□-50×75×3.2</td><td>90</td><td>1.7mm</td><td><span class="tag ok">OK</span></td><td>15</td><td><span class="tag ok">OK</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note" style="margin-top:8px">横 1.5kN/m は三友の腰壁の検討書と同じ値を仮に使った概算。案A のまま支柱を細くするのは不可。サッシに固定できないため、案C（柱型にアンカー）で進める。最終は三友の検討書と平山さんの確認で決める。</p>
+</section>
+</div>
